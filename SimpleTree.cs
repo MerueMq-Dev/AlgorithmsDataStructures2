@@ -6,9 +6,9 @@ namespace AlgorithmsDataStructures2
     public class SimpleTreeNode<T>
     {
         public int level;
-        public T NodeValue; // значение в узле
-        public SimpleTreeNode<T> Parent; // родитель или null для корня
-        public List<SimpleTreeNode<T>> Children; // список дочерних узлов или null
+        public T NodeValue;
+        public SimpleTreeNode<T> Parent;
+        public List<SimpleTreeNode<T>> Children;
 
         public SimpleTreeNode(T val, SimpleTreeNode<T> parent)
         {
@@ -220,7 +220,6 @@ namespace AlgorithmsDataStructures2
 
             var leftChildren = leftTreeNode.Children;
             var rightChildren = rightTreeNode.Children;
-            
             if (leftChildren == null && rightChildren == null)
                 return true;
 
