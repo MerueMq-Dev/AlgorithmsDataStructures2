@@ -209,35 +209,27 @@ namespace AlgorithmsDataStructures2
 
         private bool IsSymmetrical(SimpleTreeNode<T> leftTreeNode, SimpleTreeNode<T> rightTreeNode)
         {
-            // Оба узла равны null
             if (leftTreeNode == null && rightTreeNode == null)
                 return true;
-
-            // Один из узлов равен null, а другой нет
+            
             if (leftTreeNode == null || rightTreeNode == null)
                 return false;
-
-            // Значения узлов не равны
+            
             if (!IsEqualTo(leftTreeNode.NodeValue, rightTreeNode.NodeValue))
                 return false;
 
-            // Проверка на детей
             var leftChildren = leftTreeNode.Children;
             var rightChildren = rightTreeNode.Children;
-
-            // Оба узла без детей
+            
             if (leftChildren == null && rightChildren == null)
                 return true;
 
-            // Только у одного из узлов есть дети
             if (leftChildren == null || rightChildren == null)
                 return false;
-
-            // Количество детей не совпадает
+            
             if (leftChildren.Count != rightChildren.Count)
                 return false;
-
-            // Рекурсивная проверка симметричности всех пар детей
+            
             int count = leftChildren.Count;
             for (int i = 0; i < count; i++)
             {
