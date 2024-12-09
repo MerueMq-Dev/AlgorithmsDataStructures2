@@ -7,52 +7,30 @@ namespace AlgorithmsDataStructures2
     {
         public static void Main(string[] args)
         {
-            SimpleTreeNode<int> rootNode = new SimpleTreeNode<int>(0, null);
-            
-            SimpleTreeNode<int> nodeOne = new SimpleTreeNode<int>(1, null);
-            SimpleTreeNode<int> secondNodeOne = new SimpleTreeNode<int>(1, null);
-            
-            SimpleTreeNode<int> nodeTwo = new SimpleTreeNode<int>(2, null);
-            SimpleTreeNode<int> secondNodeTwo = new SimpleTreeNode<int>(2, null);
+            BSTNode<int> rootNode = new BSTNode<int>(0, 0, null);
+            List<int> values = new List<int> { 1, 2, 3, 4, 5 };
+            BST<int> tree = new BST<int>(rootNode);
 
-            SimpleTreeNode<int> nodeThree = new SimpleTreeNode<int>(3, null);
-            SimpleTreeNode<int> secondNodeThree = new SimpleTreeNode<int>(3, null);
-            
-            // SimpleTreeNode<int> nodeFour = new SimpleTreeNode<int>(4, null);
-            // SimpleTreeNode<int> secondNodeFour = new SimpleTreeNode<int>(4, null);
-
-            
-            SimpleTree<int> tree = new SimpleTree<int>(rootNode);
-            tree.AddChild(rootNode, nodeOne);
-            tree.AddChild(nodeOne, nodeThree);
-            tree.AddChild(nodeOne, nodeTwo);
-            
-            tree.AddChild(rootNode, secondNodeOne);
-            tree.AddChild(secondNodeOne, secondNodeTwo);
-            tree.AddChild(secondNodeOne, secondNodeThree);
-            
-            List<SimpleTreeNode<int>> allNodes = tree.GetAllNodes();
-            Console.WriteLine("BEFORE:");
-            foreach (var currentNode in allNodes)
+            foreach (var value in values)
             {
-                Console.WriteLine("--------------------------------------");
-                Console.WriteLine($"node value: {currentNode.NodeValue}");
-                Console.WriteLine($"node level: {currentNode.level}");
+                tree.AddKeyValue(value, value);
             }
 
-            Console.WriteLine($"is symmetrical {tree.IsSymmetrical()}");
-            
-            // Console.WriteLine("AFTER:");
-            // List<SimpleTreeNode<int>> nodes = tree.GetAllNodes();
-            // tree.AssignNodeLevels();
-            // foreach (var currentNode in nodes)
-            // {
-            //     Console.WriteLine($"node value: {currentNode.NodeValue}");
-            //     Console.WriteLine($"node level: {currentNode.level}");
-            // }
+            BSTNode<int> maxNode = tree.FinMinMax(rootNode, true);
+            Console.WriteLine($"Максимальное значение в дереве {maxNode.NodeKey}");
+            BSTNode<int> minNode = tree.FinMinMax(rootNode, false);
+            Console.WriteLine($"Минимальное значение в дереве {minNode.NodeKey}");
 
-            Console.WriteLine($"Узлов в дереве: {tree.Count()}");
-            Console.WriteLine($"Листьев в дереве: {tree.LeafCount()}");
+
+            int nodeCount = tree.Count();
+            Console.WriteLine($"node count {nodeCount}");
+            tree.DeleteNodeByKey(4);
+            var res = tree.FindNodeByKey(4);
+            if (!res.NodeHasKey)
+            {
+                Console.WriteLine("Нода 4 удалена");
+            }
+            // Console.WriteLine($"Найденный ключ в дереве: {resultNode.NodeKey}");
         }
     }
 }

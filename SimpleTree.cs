@@ -194,7 +194,7 @@ namespace AlgorithmsDataStructures2
 
         public bool IsSymmetrical()
         {
-            if (Root == null || Root.Children == null || Root.Children.Count <= 1)
+            if (Root == null || Root.Children == null || Root.Children.Count == 0)
                 return true;
 
             int count = Root.Children.Count;
@@ -218,8 +218,8 @@ namespace AlgorithmsDataStructures2
             if (!IsEqualTo(leftTreeNode.NodeValue, rightTreeNode.NodeValue))
                 return false;
 
-            var leftChildren = leftTreeNode.Children;
-            var rightChildren = rightTreeNode.Children;
+            List<SimpleTreeNode<T>> leftChildren = leftTreeNode.Children;
+            List<SimpleTreeNode<T>> rightChildren = rightTreeNode.Children;
             if (leftChildren == null && rightChildren == null)
                 return true;
 
