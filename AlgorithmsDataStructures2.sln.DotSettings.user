@@ -9,5 +9,16 @@
     &lt;TestId&gt;xUnit::861719E8-5AFE-4A13-AEAA-81574E33C057::.NETFramework,Version=v4.8::AlgorithmsDataStructures2.Tests.SimpleTreeTests.Count_ShouldReturnFour&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::861719E8-5AFE-4A13-AEAA-81574E33C057::.NETFramework,Version=v4.8::AlgorithmsDataStructures2.Tests.SimpleTreeTests.MoveNode_ShouldMoveSubtreeToNewParent&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::861719E8-5AFE-4A13-AEAA-81574E33C057::.NETFramework,Version=v4.8::AlgorithmsDataStructures2.Tests.SimpleTreeTests.DeleteNode_ShouldDeleteTheNodeAlongWithItsSubtree&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::861719E8-5AFE-4A13-AEAA-81574E33C057::.NETFramework,Version=v4.8::AlgorithmsDataStructures2.Tests.BSTTests.FindNodeByKey_ShouldIndicateToLeftAndReturnFalse_WhenKeyIsLessThanParent&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::861719E8-5AFE-4A13-AEAA-81574E33C057::.NETFramework,Version=v4.8::AlgorithmsDataStructures2.Tests.BSTTests.FindNodeByKey_ShouldIndicateToRightAndReturnFalse_WhenKeyIsGreaterThanParent&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::861719E8-5AFE-4A13-AEAA-81574E33C057::.NETFramework,Version=v4.8::AlgorithmsDataStructures2.Tests.BSTTests.FindNodeByKey_ShouldReturnNodeAndTrue_WhenKeyExists&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::861719E8-5AFE-4A13-AEAA-81574E33C057::.NETFramework,Version=v4.8::AlgorithmsDataStructures2.Tests.BSTTests.AddKeyValue_ShouldAddNodeToLeft_WhenKeyIsLessThanParent&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::861719E8-5AFE-4A13-AEAA-81574E33C057::.NETFramework,Version=v4.8::AlgorithmsDataStructures2.Tests.BSTTests.AddKeyValue_ShouldAddNodeToRight_WhenKeyIsGreaterThanParent&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::861719E8-5AFE-4A13-AEAA-81574E33C057::.NETFramework,Version=v4.8::AlgorithmsDataStructures2.Tests.BSTTests.AddKeyValue_ShouldNotModifyTree_WhenKeyAlreadyExists&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::861719E8-5AFE-4A13-AEAA-81574E33C057::.NETFramework,Version=v4.8::AlgorithmsDataStructures2.Tests.BSTTests.FinMinMax_ShouldReturnMinimumKey&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::861719E8-5AFE-4A13-AEAA-81574E33C057::.NETFramework,Version=v4.8::AlgorithmsDataStructures2.Tests.BSTTests.FinMinMax_ShouldReturnMaximumKey&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::861719E8-5AFE-4A13-AEAA-81574E33C057::.NETFramework,Version=v4.8::AlgorithmsDataStructures2.Tests.BSTTests.FinMinMax_ShouldReturnMinimumKey_FromSubtree&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::861719E8-5AFE-4A13-AEAA-81574E33C057::.NETFramework,Version=v4.8::AlgorithmsDataStructures2.Tests.BSTTests.FinMinMax_ShouldReturnMaximumKey_FromSubtree&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::861719E8-5AFE-4A13-AEAA-81574E33C057::.NETFramework,Version=v4.8::AlgorithmsDataStructures2.Tests.BSTTests.DeleteNodeByKey_ShouldRemoveNodeAndReturnTrue_WhenNodeExists&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

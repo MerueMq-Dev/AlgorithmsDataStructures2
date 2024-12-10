@@ -55,7 +55,7 @@ namespace AlgorithmsDataStructures2
         {
             if (Root == null)
             {
-                return new BSTFind<T>();
+                return new BSTFind<T>(null, false, false);
             }
 
             BSTNode<T> currentNode = Root;
@@ -70,6 +70,7 @@ namespace AlgorithmsDataStructures2
                 if (key > currentNode.NodeKey)
                 {
                     currentNode = currentNode.RightChild;
+                    continue;
                 }
 
                 if (key < currentNode.NodeKey)
@@ -93,6 +94,9 @@ namespace AlgorithmsDataStructures2
             BSTNode<T> currentNode = Root;
             while (currentNode != null)
             {
+                if (key == currentNode.NodeKey)
+                    break;
+                
                 if (key > currentNode.NodeKey)
                 {
                     if (currentNode.RightChild == null)
