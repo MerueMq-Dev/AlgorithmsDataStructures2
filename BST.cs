@@ -20,13 +20,13 @@ namespace AlgorithmsDataStructures2
             RightChild = null;
         }
     }
-    
+
     public class BSTFind<T>
     {
         public BSTNode<T> Node;
-        
+
         public bool NodeHasKey;
-        
+
         public bool ToLeft;
 
         public BSTFind()
@@ -78,7 +78,7 @@ namespace AlgorithmsDataStructures2
                     currentNode = currentNode.LeftChild;
                 }
             }
-            
+
             bool toLeft = prevNode.NodeKey > key;
             return new BSTFind<T>(prevNode, false, toLeft);
         }
@@ -96,7 +96,7 @@ namespace AlgorithmsDataStructures2
             {
                 if (key == currentNode.NodeKey)
                     break;
-                
+
                 if (key > currentNode.NodeKey)
                 {
                     if (currentNode.RightChild == null)
@@ -149,8 +149,8 @@ namespace AlgorithmsDataStructures2
                 }
             }
         }
-        
-        
+
+
         public bool DeleteNodeByKey(int key)
         {
             BSTFind<T> findRes = FindNodeByKey(key);
@@ -158,7 +158,7 @@ namespace AlgorithmsDataStructures2
                 return false;
 
             BSTNode<T> nodeToDelete = findRes.Node;
-            
+
             if (nodeToDelete.LeftChild == null || nodeToDelete.RightChild == null)
             {
                 ReplaceNode(nodeToDelete, nodeToDelete.LeftChild ?? nodeToDelete.RightChild);
@@ -173,7 +173,27 @@ namespace AlgorithmsDataStructures2
 
             return true;
         }
-        
+
+        public bool IsIdentical(BST<T> compareTo)
+        {
+            if (compareTo.Count() != Count())
+                return false;
+
+            return IsIdentical(Root, compareTo.Root);
+        }
+
+        private bool IsIdentical(BSTNode<T> node, BSTNode<T> compareTo)
+        {
+            if (node == null && compareTo == null)
+                return true;
+
+            if (node?.NodeKey != compareTo?.NodeKey)
+                return false;
+
+            return IsIdentical(node.LeftChild, compareTo.LeftChild) &&
+                   IsIdentical(node.RightChild, compareTo.RightChild);
+        }
+
         private void ReplaceNode(BSTNode<T> node, BSTNode<T> newNode)
         {
             if (node.Parent == null)
@@ -194,7 +214,8 @@ namespace AlgorithmsDataStructures2
                 newNode.Parent = node.Parent;
             }
         }
-        
+
+
         public int Count()
         {
             return Count(Root);
@@ -206,6 +227,97 @@ namespace AlgorithmsDataStructures2
                 return 0;
 
             return 1 + Count(node.LeftChild) + Count(node.RightChild);
+        }
+
+        public List<List<BSTNode<T>>> GetPathsWithLength(int pathLength)
+        {
+            List<List<BSTNode<T>>> allPaths = new List<List<BSTNode<T>>>();
+            if (Root == null)
+                return allPaths;
+
+            GetPathsWithLength(pathLength, Root, new List<BSTNode<T>>(), allPaths);
+            return allPaths;
+        }
+
+        private void GetPathsWithLength(int pathLength, BSTNode<T> node,
+            List<BSTNode<T>> currentPath, List<List<BSTNode<T>>> allPaths)
+        {
+            if (node == null)
+                return;
+
+            currentPath.Add(node);
+
+            if (node.LeftChild == null && node.RightChild == null && currentPath.Count == pathLength)
+            {
+                allPaths.Add(new List<BSTNode<T>>(currentPath));
+            }
+            else
+            {
+                GetPathsWithLength(pathLength, node.LeftChild, currentPath, allPaths);
+                GetPathsWithLength(pathLength, node.RightChild, currentPath, allPaths);
+            }
+
+            currentPath.RemoveAt(currentPath.Count - 1);
+        }
+
+        public List<List<BSTNode<T>>> GetMaxSumPaths()
+        {
+            List<List<BSTNode<T>>> allPaths = GetAllPaths();
+            List<List<BSTNode<T>>> maxPaths = new List<List<BSTNode<T>>>();
+            int maxPathValue = 0;
+            for (int i = 0; i < allPaths.Count; i++)
+            {
+                int count = 0;
+                for (int j = 0; j < allPaths[i].Count; j++)
+                {
+                    count += allPaths[i][j].NodeKey;
+                }
+
+                if (count > maxPathValue)
+                {
+                    maxPathValue = count;
+                    maxPaths = new List<List<BSTNode<T>>>() { allPaths[i] };
+                    continue;
+                }
+
+                if (count == maxPathValue)
+                {
+                    maxPathValue = count;
+                    maxPaths.Add(allPaths[i]);
+                }
+            }
+
+            return maxPaths;
+        }
+
+        public List<List<BSTNode<T>>> GetAllPaths()
+        {
+            if (Root == null)
+                return new List<List<BSTNode<T>>>();
+            List<List<BSTNode<T>>> result = new List<List<BSTNode<T>>>();
+            GetAllPaths(Root, new List<BSTNode<T>>(), result);
+            return result;
+        }
+
+        private void GetAllPaths(BSTNode<T> node,
+            List<BSTNode<T>> currentPath, List<List<BSTNode<T>>> allPaths)
+        {
+            if (node == null)
+                return;
+
+            currentPath.Add(node);
+
+            if (node.LeftChild == null && node.RightChild == null)
+            {
+                allPaths.Add(new List<BSTNode<T>>(currentPath));
+            }
+            else
+            {
+                GetAllPaths(node.LeftChild, currentPath, allPaths);
+                GetAllPaths(node.RightChild, currentPath, allPaths);
+            }
+
+            currentPath.RemoveAt(currentPath.Count - 1);
         }
     }
 }

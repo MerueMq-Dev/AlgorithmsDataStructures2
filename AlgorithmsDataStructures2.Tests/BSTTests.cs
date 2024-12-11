@@ -157,7 +157,7 @@ namespace AlgorithmsDataStructures2.Tests
             BSTNode<int> maxKeyNode = tree.FinMinMax(findRes.Node, true);
 
             maxKeyNode.NodeKey.Should().Be(expectedValue);
-        }
+        }   
 
         [Fact]
         public void FinMinMax_ShouldReturnMaximumKey_FromSubtree()

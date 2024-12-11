@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace AlgorithmsDataStructures2
 {
@@ -7,8 +8,8 @@ namespace AlgorithmsDataStructures2
     {
         public static void Main(string[] args)
         {
-            BSTNode<int> rootNode = new BSTNode<int>(0, 0, null);
-            List<int> values = new List<int> { 1, 2, 3, 4, 5 };
+            BSTNode<int> rootNode = new BSTNode<int>(3, 3, null);
+            List<int> values = new List<int> { 1, 2, 4, 5 };
             BST<int> tree = new BST<int>(rootNode);
 
             foreach (var value in values)
@@ -16,19 +17,18 @@ namespace AlgorithmsDataStructures2
                 tree.AddKeyValue(value, value);
             }
 
-            BSTNode<int> maxNode = tree.FinMinMax(rootNode, true);
-            Console.WriteLine($"Максимальное значение в дереве {maxNode.NodeKey}");
-            BSTNode<int> minNode = tree.FinMinMax(rootNode, false);
-            Console.WriteLine($"Минимальное значение в дереве {minNode.NodeKey}");
-
-
-            int nodeCount = tree.Count();
-            Console.WriteLine($"node count {nodeCount}");
-            tree.DeleteNodeByKey(4);
-            var res = tree.FindNodeByKey(4);
-            if (!res.NodeHasKey)
+            List<List<BSTNode<int>>> maxSumPaths = tree.GetMaxSumPaths();
+            for (int i = 0; i < maxSumPaths.Count; i++)
             {
-                Console.WriteLine("Нода 4 удалена");
+                Console.WriteLine($"Путь номер {i + 1}");
+                int count = 0;
+                for (int j = 0; j < maxSumPaths[i].Count; j++)
+                {
+                    count += maxSumPaths[i][j].NodeKey;
+                    Console.WriteLine(maxSumPaths[i][j].NodeKey);
+                }
+
+                Console.WriteLine($"MAX {count}");
             }
             // Console.WriteLine($"Найденный ключ в дереве: {resultNode.NodeKey}");
         }
