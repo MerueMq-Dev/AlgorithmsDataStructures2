@@ -21,6 +21,30 @@ namespace AlgorithmsDataStructures2
         }
     }
 
+    public class BSTNode
+    {
+        public int NodeKey;
+        public BSTNode Parent;
+        public BSTNode LeftChild;
+        public BSTNode RightChild;
+
+        public BSTNode(int key, BSTNode parent, BSTNode leftChild = null, BSTNode rightChild = null)
+        {
+            NodeKey = key;
+            Parent = parent;
+            LeftChild = leftChild;
+            RightChild = rightChild;
+        }
+
+        public BSTNode(int key, BSTNode parent)
+        {
+            NodeKey = key;
+            Parent = parent;
+            LeftChild = null;
+            RightChild = null;
+        }
+    }
+
     public class BSTFind<T>
     {
         public BSTNode<T> Node;
@@ -318,6 +342,86 @@ namespace AlgorithmsDataStructures2
             }
 
             currentPath.RemoveAt(currentPath.Count - 1);
+        }
+
+
+        public List<BSTNode> WideAllNodes()
+        {
+            if (Root == null)
+                return new List<BSTNode>();
+
+            Queue<BSTNode<T>> queue = new Queue<BSTNode<T>>();
+            List<BSTNode> allNodes = new List<BSTNode>();
+
+            queue.Enqueue(Root);
+
+            while (queue.Count > 0)
+            {
+                BSTNode<T> currentNode = queue.Dequeue();
+                allNodes.Add(new BSTNode(currentNode.NodeKey, null));
+
+                if (currentNode.LeftChild != null)
+                    queue.Enqueue(currentNode.LeftChild);
+
+                if (currentNode.RightChild != null)
+                    queue.Enqueue(currentNode.RightChild);
+            }
+
+            return allNodes;
+        }
+
+        public List<BSTNode> DeepAllNodes(int processingOrder)
+        {
+            if (Root == null)
+                return new List<BSTNode>();
+
+            return DeepAllNodes(processingOrder, Root);
+        }
+
+        private List<BSTNode> DeepAllNodes(int processingOrder, BSTNode<T> node)
+        {
+            if (node == null)
+                return new List<BSTNode>();
+
+            List<BSTNode> allNodes = new List<BSTNode>();
+            if (processingOrder == 0)
+            {
+                List<BSTNode> leftNodes = DeepAllNodes(processingOrder, node.LeftChild);
+                allNodes.AddRange(leftNodes);
+
+                allNodes.Add(new BSTNode(node.NodeKey, null));
+
+                List<BSTNode> rightNodes = DeepAllNodes(processingOrder, node.RightChild);
+                allNodes.AddRange(rightNodes);
+                return allNodes;
+            }
+
+            if (processingOrder == 1)
+            {
+                List<BSTNode> leftNodes = DeepAllNodes(processingOrder, node.LeftChild);
+                allNodes.AddRange(leftNodes);
+
+                List<BSTNode> rightNodes = DeepAllNodes(processingOrder, node.RightChild);
+                allNodes.AddRange(rightNodes);
+                
+                allNodes.Add(new BSTNode(node.NodeKey, null));
+
+                return allNodes;
+            }
+            if (processingOrder == 2)
+            {
+                allNodes.Add(new BSTNode(node.NodeKey, null));
+                
+                List<BSTNode> leftNodes = DeepAllNodes(processingOrder, node.LeftChild);
+                allNodes.AddRange(leftNodes);
+
+                List<BSTNode> rightNodes = DeepAllNodes(processingOrder, node.RightChild);
+                allNodes.AddRange(rightNodes);
+                
+                return allNodes;
+            }
+            
+            return allNodes;
         }
     }
 }
