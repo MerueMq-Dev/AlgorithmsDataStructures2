@@ -8,21 +8,56 @@ namespace AlgorithmsDataStructures2
     {
         public static void Main(string[] args)
         {
-            BSTNode<int> rootNode = new BSTNode<int>(5, 5, null);
-            List<int> values = new List<int> { 3,7,1,4,6,8 };
-            BST<int> tree = new BST<int>(rootNode);
+            // BSTNode<int> rootNode = new BSTNode<int>(4, 4, null);
+            // List<int> values = new List<int> { 2, 1, 3, 6, 5, 7 };
+            BST<int> tree = new BST<int>(null);
 
-            foreach (var value in values)
+            // foreach (var value in values)
+            // {
+            //     tree.AddKeyValue(value, value);
+            // }
+            
+            int[] prefixTraversal = { 1,2,4,5,3,6,7 };
+            int[] infixTraversal = { 4,2,5,1,6,3,7 };
+            
+            tree.RestoreTree(prefixTraversal,infixTraversal);
+            
+            List<BSTNode<int>> allNodes = tree.WideAllNodes2();
+            int currentLevel = 0;
+            foreach (BSTNode<int> node in allNodes)
             {
-                tree.AddKeyValue(value, value);
+                if (currentLevel < node.level)
+                {
+                    Console.WriteLine();
+                    currentLevel += 1;
+                }
+                Console.Write($" {node.NodeKey} ");
             }
 
-            List<BSTNode> allNodes = tree.DeepAllNodes(0);
-            foreach (BSTNode node in allNodes)
-            {
-                Console.WriteLine("--------------------------------------------------------------------");
-                Console.WriteLine($"current key {node.NodeKey}");
-            }
+            // tree.InvertTree();
+            // Console.WriteLine();
+            // Console.WriteLine("AFTER");
+            // currentLevel = 0;
+            // allNodes = tree.WideAllNodes2();
+            // foreach (BSTNode<int> node in allNodes)
+            // {
+            //     if (currentLevel < node.level)
+            //     {
+            //         Console.WriteLine();
+            //         currentLevel += 1;
+            //     }
+            //     Console.Write($" {node.NodeKey} ");
+            // }
+            //
+            // Console.WriteLine();
+            
+
+            
+            
+            // int maxLevel = tree.FindLevelWithMaxSum();
+            // Console.WriteLine();
+            // Console.WriteLine($"lvl with max sum {maxLevel}");
+            
             // List<List<BSTNode<int>>> maxSumPaths = tree.GetMaxSumPaths();
             // for (int i = 0; i < maxSumPaths.Count; i++)
             // {

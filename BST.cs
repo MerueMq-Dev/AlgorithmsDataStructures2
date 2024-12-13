@@ -1,16 +1,28 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AlgorithmsDataStructures2
 {
     public class BSTNode<T>
     {
+        public int level;
         public int NodeKey;
         public T NodeValue;
         public BSTNode<T> Parent;
         public BSTNode<T> LeftChild;
         public BSTNode<T> RightChild;
 
+        public BSTNode(int key, T val, BSTNode<T> parent, int nodeLevel)
+        {
+            level = nodeLevel;
+            NodeKey = key;
+            NodeValue = val;
+            Parent = parent;
+            LeftChild = null;
+            RightChild = null;
+        }
+        
         public BSTNode(int key, T val, BSTNode<T> parent)
         {
             NodeKey = key;
@@ -111,7 +123,7 @@ namespace AlgorithmsDataStructures2
         {
             if (Root == null)
             {
-                Root = new BSTNode<T>(key, val, Root);
+                Root = new BSTNode<T>(key, val, null, 0);
                 return true;
             }
 
@@ -125,18 +137,21 @@ namespace AlgorithmsDataStructures2
                 {
                     if (currentNode.RightChild == null)
                     {
-                        currentNode.RightChild = new BSTNode<T>(key, val, currentNode);
+                        currentNode.RightChild = new BSTNode<T>(key, val, currentNode,
+                            currentNode.level + 1);
                         return true;
                     }
 
                     currentNode = currentNode.RightChild;
+                    continue;
                 }
 
                 if (key < currentNode.NodeKey)
                 {
                     if (currentNode.LeftChild == null)
                     {
-                        currentNode.LeftChild = new BSTNode<T>(key, val, currentNode);
+                        currentNode.LeftChild = new BSTNode<T>(key, val,
+                            currentNode, currentNode.level + 1);
                         return true;
                     }
 
@@ -370,6 +385,32 @@ namespace AlgorithmsDataStructures2
             return allNodes;
         }
 
+        public List<BSTNode<T>> WideAllNodes2()
+        {
+            if (Root == null)
+                return new List<BSTNode<T>>();
+
+            Queue<BSTNode<T>> queue = new Queue<BSTNode<T>>();
+            List<BSTNode<T>> allNodes = new List<BSTNode<T>>();
+
+            queue.Enqueue(Root);
+
+            while (queue.Count > 0)
+            {
+                BSTNode<T> currentNode = queue.Dequeue();
+                allNodes.Add(currentNode);
+
+                if (currentNode.LeftChild != null)
+                    queue.Enqueue(currentNode.LeftChild);
+
+                if (currentNode.RightChild != null)
+                    queue.Enqueue(currentNode.RightChild);
+            }
+
+            return allNodes;
+        }
+
+        
         public List<BSTNode> DeepAllNodes(int processingOrder)
         {
             if (Root == null)
@@ -422,6 +463,107 @@ namespace AlgorithmsDataStructures2
             }
             
             return allNodes;
+        }
+        
+        public void InvertTree()
+        {
+
+            InvertTree(Root);
+        }
+
+        private void InvertTree(BSTNode<T> currentNode)
+        {
+            if (currentNode == null)
+                return;
+
+            (currentNode.LeftChild, currentNode.RightChild) = (currentNode.RightChild, currentNode.LeftChild);
+            InvertTree(currentNode.LeftChild);
+            InvertTree(currentNode.RightChild);
+        }
+
+        public int FindLevelWithMaxSum()
+        {
+            Queue<BSTNode<T>> queue = new Queue<BSTNode<T>>();
+            queue.Enqueue(Root);
+            int maxLevelIndex = FindMaxLevel() + 1;
+            int[] levelsSum = new int[maxLevelIndex];
+            
+            while (queue.Count > 0)
+            {
+                BSTNode<T> currentNode = queue.Dequeue();
+                levelsSum[currentNode.level] += currentNode.NodeKey;
+                
+                if (currentNode.RightChild != null)
+                    queue.Enqueue(currentNode.RightChild);
+                
+                if (currentNode.LeftChild != null)
+                    queue.Enqueue(currentNode.LeftChild);
+            }
+
+            int levelWithMaxSum = -1;
+            int maxSum = 0;
+            for (int i = 0; i < levelsSum.Length; i++)
+            {
+                if (maxSum < levelsSum[i])
+                {
+                    maxSum = levelsSum[i];
+                    levelWithMaxSum = i;
+                }
+            }
+
+            return levelWithMaxSum;
+        }
+
+        public int FindMaxLevel()
+        {
+            if (Root == null)
+                return -1;
+
+            return FindMaxLevel(Root);
+        }
+        
+        private int FindMaxLevel(BSTNode<T> node)
+        {
+            if (node == null)
+                return 0;
+            
+            if (node.LeftChild == null && node.RightChild == null)
+                return node.level;
+
+            int maxLevelLeft = FindMaxLevel(node.LeftChild);
+            int maxLevelRight = FindMaxLevel(node.LeftChild);
+            
+            return maxLevelLeft > maxLevelRight ? maxLevelLeft : maxLevelRight;
+        }
+
+        // префиксный массив: [1,2,4,5,3,6,7]
+        // инфиксный массив: [4,2,5,1,6,3,7]
+        public void RestoreTree(int[] prefixTraversal,int[] infixTraversal)
+        {
+            Root = RestoreTree(prefixTraversal, infixTraversal, 0, 0);
+        }
+
+        private BSTNode<T> RestoreTree(int[] prefixTraversal, int[] infixTraversal, int index,int level)
+        {
+            if (infixTraversal.Length == 0)
+                return null;
+            
+            int currentValue = prefixTraversal[index];
+            index += 1;
+            level += 1;
+            
+            int rootIndexInInfix = Array.IndexOf(infixTraversal, currentValue);
+            
+            int[] leftInfix = infixTraversal.Take(rootIndexInInfix).ToArray();
+            int[] rightInfix = infixTraversal.Skip(rootIndexInInfix + 1).ToArray();
+            
+            BSTNode<T> node = new BSTNode<T>(currentValue, default, null, level)
+            {
+                LeftChild = RestoreTree(prefixTraversal, leftInfix, index, level),
+                RightChild = RestoreTree(prefixTraversal, rightInfix, index + leftInfix.Length, level)
+            };
+
+            return node;
         }
     }
 }
