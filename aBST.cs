@@ -51,9 +51,19 @@ namespace AlgorithmsDataStructures2
         {
             // добавляем ключ в массив
             int? indexToAdd = FindKeyIndex(key);
-            if (indexToAdd == null || 0 == indexToAdd && Tree[indexToAdd.Value] != null )
+            if (indexToAdd == null)
             {
                 return -1;
+            }
+
+            if (0 == indexToAdd && Tree[indexToAdd.Value] == null)
+            {
+                Tree[indexToAdd.Value] = key;
+                return indexToAdd.Value;
+            }
+            if (0 == indexToAdd && Tree[indexToAdd.Value] != null)
+            {
+                return indexToAdd.Value;
             }
             
             if (indexToAdd < 0)

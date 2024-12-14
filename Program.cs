@@ -13,7 +13,19 @@ namespace AlgorithmsDataStructures2
             // 2 - 7
             // 3 - 15
             int test = (int)Math.Pow(1,2) - 1;
-    
+            
+            
+            aBST tree = new aBST(1);
+            int firstKeyIndex = tree.AddKey(2);
+            int secondKeyIndex = tree.AddKey(3);
+            // int thirdKeyIndex = tree.AddKey(1);
+
+            Console.WriteLine($"tree.AddKey(2) {tree.AddKey(3)}");
+
+            Console.WriteLine($"firstKeyIndex {secondKeyIndex}");
+            
+            
+            
             // int x = 12;
             // int y = ~x;
             // y += 1;
@@ -24,30 +36,30 @@ namespace AlgorithmsDataStructures2
             Console.WriteLine($"test2: {test2}");
             // BSTNode<int> rootNode = new BSTNode<int>(4, 4, null);
             // List<int> values = new List<int> { 2, 1, 3, 6, 5, 7 };
-            BST<int> tree = new BST<int>(null);
+            // BST<int> tree = new BST<int>(null);
 
             // foreach (var value in values)
             // {
             //     tree.AddKeyValue(value, value);
             // }
 
-            int[] prefixTraversal = { 1, 2, 4, 5, 3, 6, 7 };
-            int[] infixTraversal = { 4, 2, 5, 1, 6, 3, 7 };
-
-            tree.RestoreTree(prefixTraversal, infixTraversal);
-
-            List<BSTNode<int>> allNodes = tree.WideAllNodes2();
-            int currentLevel = 0;
-            foreach (BSTNode<int> node in allNodes)
-            {
-                if (currentLevel < node.level)
-                {
-                    Console.WriteLine();
-                    currentLevel += 1;
-                }
-
-                Console.Write($" {node.NodeKey} ");
-            }
+            // int[] prefixTraversal = { 1, 2, 4, 5, 3, 6, 7 };
+            // int[] infixTraversal = { 4, 2, 5, 1, 6, 3, 7 };
+            //
+            // tree.RestoreTree(prefixTraversal, infixTraversal);
+            //
+            // List<BSTNode<int>> allNodes = tree.WideAllNodes2();
+            // int currentLevel = 0;
+            // foreach (BSTNode<int> node in allNodes)
+            // {
+            //     if (currentLevel < node.level)
+            //     {
+            //         Console.WriteLine();
+            //         currentLevel += 1;
+            //     }
+            //
+            //     Console.Write($" {node.NodeKey} ");
+            // }
 
             // tree.InvertTree();
             // Console.WriteLine();
