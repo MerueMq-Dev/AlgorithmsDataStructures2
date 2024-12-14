@@ -18,8 +18,11 @@ namespace AlgorithmsDataStructures2
             aBST tree = new aBST(1);
             int firstKeyIndex = tree.AddKey(2);
             int secondKeyIndex = tree.AddKey(3);
-            // int thirdKeyIndex = tree.AddKey(1);
+            int thirdKeyIndex = tree.AddKey(1);
+            int thirdIndex = tree.AddKey(4);
 
+            Console.WriteLine(thirdIndex);
+            
             Console.WriteLine($"tree.AddKey(2) {tree.AddKey(3)}");
 
             Console.WriteLine($"firstKeyIndex {secondKeyIndex}");

@@ -5,7 +5,7 @@ namespace AlgorithmsDataStructures2
 {
     public class aBST
     {
-        public int?[] Tree; // массив ключей
+        public int?[] Tree;
 
         public aBST(int depth)
         {
@@ -20,36 +20,48 @@ namespace AlgorithmsDataStructures2
             if (Tree[0] == null)
             {
                 return 0;
-            }   
-            int? current = Tree[0];
-            for(int i = 0 ;i < Tree.Length;) 
+            }
+
+            try
             {
-                if (current == key)
+
+                int? current = Tree[0];
+                for (int i = 0; i < Tree.Length;)
                 {
-                    return i;
-                }
-                if (current == null)
-                {
-                    return ~i + 1;
-                }
-                if (current > key)
-                {
-                    i = i * 2 + 1;
-                    current = Tree[i];
-                    continue;
-                }
-                if (current < key)
-                {
-                    i = i * 2 + 2;
-                    current = Tree[i];
+                    if (current == key)
+                    {
+                        return i;
+                    }
+
+                    if (current == null)
+                    {
+                        return ~i + 1;
+                    }
+
+                    if (current > key)
+                    {
+                        i = i * 2 + 1;
+                        current = Tree[i];
+                        continue;
+                    }
+
+                    if (current < key)
+                    {
+                        i = i * 2 + 2;
+                        current = Tree[i];
+                    }
                 }
             }
+            catch
+            {
+                return null;
+            }
+
             return null;
         }
 
         public int AddKey(int key)
         {
-            // добавляем ключ в массив
             int? indexToAdd = FindKeyIndex(key);
             if (indexToAdd == null)
             {
