@@ -8,6 +8,20 @@ namespace AlgorithmsDataStructures2
     {
         public static void Main(string[] args)
         {
+            // 0 - 1
+            // 1 - 3
+            // 2 - 7
+            // 3 - 15
+            int test = (int)Math.Pow(1,2) - 1;
+    
+            // int x = 12;
+            // int y = ~x;
+            // y += 1;
+            // Console.WriteLine(y);  
+            int test2 = 12;
+            test2 = ~test2 + 1;
+            Console.WriteLine($"test: {test}");
+            Console.WriteLine($"test2: {test2}");
             // BSTNode<int> rootNode = new BSTNode<int>(4, 4, null);
             // List<int> values = new List<int> { 2, 1, 3, 6, 5, 7 };
             BST<int> tree = new BST<int>(null);
@@ -16,12 +30,12 @@ namespace AlgorithmsDataStructures2
             // {
             //     tree.AddKeyValue(value, value);
             // }
-            
-            int[] prefixTraversal = { 1,2,4,5,3,6,7 };
-            int[] infixTraversal = { 4,2,5,1,6,3,7 };
-            
-            tree.RestoreTree(prefixTraversal,infixTraversal);
-            
+
+            int[] prefixTraversal = { 1, 2, 4, 5, 3, 6, 7 };
+            int[] infixTraversal = { 4, 2, 5, 1, 6, 3, 7 };
+
+            tree.RestoreTree(prefixTraversal, infixTraversal);
+
             List<BSTNode<int>> allNodes = tree.WideAllNodes2();
             int currentLevel = 0;
             foreach (BSTNode<int> node in allNodes)
@@ -31,6 +45,7 @@ namespace AlgorithmsDataStructures2
                     Console.WriteLine();
                     currentLevel += 1;
                 }
+
                 Console.Write($" {node.NodeKey} ");
             }
 
@@ -50,14 +65,12 @@ namespace AlgorithmsDataStructures2
             // }
             //
             // Console.WriteLine();
-            
 
-            
-            
+
             // int maxLevel = tree.FindLevelWithMaxSum();
             // Console.WriteLine();
             // Console.WriteLine($"lvl with max sum {maxLevel}");
-            
+
             // List<List<BSTNode<int>>> maxSumPaths = tree.GetMaxSumPaths();
             // for (int i = 0; i < maxSumPaths.Count; i++)
             // {

@@ -65,6 +65,7 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="aBSTTests.cs" />
         <Compile Include="BSTTests.cs" />
         <Compile Include="SimpleTreeTests.cs" />
         <Compile Include="Properties\AssemblyInfo.cs"/>
