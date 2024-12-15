@@ -20,10 +20,8 @@ namespace AlgorithmsDataStructures2
             int oneKeyIndex = tree.AddKey(1);
             int thirdIndex = tree.AddKey(4);
             int fiveIndex = tree.AddKey(5);
-            int sevenIndex = tree.AddKey(7);
             // oneKeyIndex, secondKeyIndex
-
-            Console.WriteLine(sevenIndex);
+            
             
             List<int> nodes = tree.WideAllNodes();
 
@@ -34,9 +32,9 @@ namespace AlgorithmsDataStructures2
 
             Console.WriteLine();
             
-             int index = tree.GetLowestCommonAncestor(sevenIndex, oneKeyIndex);
+             int index = tree.GetLowestCommonAncestor(fiveIndex, secondKeyIndex);
              Console.WriteLine($"index: {index}");
-             // Console.WriteLine($"value {tree.Tree[index]}");
+             Console.WriteLine($"value {tree.Tree[index]}");
              // Console.WriteLine(tree.Tree[0]);
              //
             

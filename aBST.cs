@@ -21,7 +21,7 @@ namespace AlgorithmsDataStructures2
             {
                 return 0;
             }
-            
+
             int? current = Tree[0];
             for (int i = 0; i < Tree.Length;)
             {
@@ -111,35 +111,30 @@ namespace AlgorithmsDataStructures2
                 return -1;
 
             //(I - 1) / 2
-            int currentIndex = firstElementIndex;
             List<int> firstList = new List<int>();
-            while (currentIndex > 0)
+            for (int currentIndex = firstElementIndex; currentIndex > 0; currentIndex = (currentIndex - 1) / 2)
             {
                 firstList.Add(currentIndex);
-                currentIndex = (currentIndex - 1) / 2;
             }
 
-            currentIndex = secondElementIndex;
             List<int> secondList = new List<int>();
-            while (currentIndex > 0)
+            for (int currentIndex = secondElementIndex; currentIndex > 0; currentIndex = (currentIndex - 1) / 2)
             {
                 secondList.Add(currentIndex);
-                currentIndex = (currentIndex - 1) / 2;
             }
 
-            int curValue = int.MinValue;
-            for (int i = 0; i < firstList.Count; i++)
+            int lca = 0;
+            int i = firstList.Count - 1;
+            int j = secondList.Count - 1;
+
+            while (i >= 0 && j >= 0 && firstList[i] == secondList[j])
             {
-                for (int j = 0; j < secondList.Count; j++)
-                {
-                    if (firstList[i] == secondList[j])
-                    {
-                        return secondList[j];
-                    }
-                }
+                lca = firstList[i];
+                i--;
+                j--;
             }
-
-            return 0;
+            
+            return lca;
         }
 
         public List<int> WideAllNodes()
