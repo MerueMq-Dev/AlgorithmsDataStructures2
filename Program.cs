@@ -14,20 +14,31 @@ namespace AlgorithmsDataStructures2
             // 3 - 15
             int test = (int)Math.Pow(1,2) - 1;
             
-            
-            aBST tree = new aBST(1);
+            aBST tree = new aBST(3);
             int firstKeyIndex = tree.AddKey(2);
             int secondKeyIndex = tree.AddKey(3);
-            int thirdKeyIndex = tree.AddKey(1);
+            int oneKeyIndex = tree.AddKey(1);
             int thirdIndex = tree.AddKey(4);
+            int fiveIndex = tree.AddKey(5);
+            int sevenIndex = tree.AddKey(7);
+            // oneKeyIndex, secondKeyIndex
 
-            Console.WriteLine(thirdIndex);
+            Console.WriteLine(sevenIndex);
             
-            Console.WriteLine($"tree.AddKey(2) {tree.AddKey(3)}");
+            List<int> nodes = tree.WideAllNodes();
 
-            Console.WriteLine($"firstKeyIndex {secondKeyIndex}");
+            foreach (var node in nodes)
+            {
+                Console.Write($"{node} ");
+            }
+
+            Console.WriteLine();
             
-            
+             int index = tree.GetLowestCommonAncestor(sevenIndex, oneKeyIndex);
+             Console.WriteLine($"index: {index}");
+             // Console.WriteLine($"value {tree.Tree[index]}");
+             // Console.WriteLine(tree.Tree[0]);
+             //
             
             // int x = 12;
             // int y = ~x;
