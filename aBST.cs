@@ -101,6 +101,9 @@ namespace AlgorithmsDataStructures2
 
         public int GetLowestCommonAncestor(int firstElementIndex, int secondElementIndex)
         {
+            if (Tree == null)
+                return -1;
+
             if (firstElementIndex < 0 || firstElementIndex > Tree.Length - 1)
                 return -1;
 
@@ -111,36 +114,25 @@ namespace AlgorithmsDataStructures2
                 return -1;
 
             //(I - 1) / 2
-            List<int> firstList = new List<int>();
-            for (int currentIndex = firstElementIndex; currentIndex > 0; currentIndex = (currentIndex - 1) / 2)
-            {
-                firstList.Add(currentIndex);
-            }
+            int firstIndex = firstElementIndex;
+            int secondIndex = secondElementIndex;
 
-            List<int> secondList = new List<int>();
-            for (int currentIndex = secondElementIndex; currentIndex > 0; currentIndex = (currentIndex - 1) / 2)
-            {
-                secondList.Add(currentIndex);
-            }
-
-            int lca = 0;
-            int i = firstList.Count - 1;
-            int j = secondList.Count - 1;
-
-            while (i >= 0 && j >= 0 && firstList[i] == secondList[j])
-            {
-                lca = firstList[i];
-                i--;
-                j--;
-            }
             
-            return lca;
+            while (firstIndex != secondIndex)
+            {
+                if (firstIndex > secondIndex)
+                    firstIndex = (firstIndex - 1) / 2;
+                else
+                    secondIndex = (secondIndex - 1) / 2;
+            }
+
+            return firstIndex;
         }
 
         public List<int> WideAllNodes()
         {
             int currentIndex = 0;
-            if (Tree.Length == 0 || Tree[currentIndex] == null)
+            if (Tree == null || Tree.Length == 0 || Tree[currentIndex] == null)
                 return new List<int>();
 
             Queue<int> queue = new Queue<int>();
@@ -150,7 +142,7 @@ namespace AlgorithmsDataStructures2
             while (queue.Count > 0)
             {
                 int currentNodeIndex = queue.Dequeue();
-                allNodes.Add(Tree[currentNodeIndex].Value);
+                allNodes.Add(currentNodeIndex);
 
                 int leftIndex = currentNodeIndex * 2 + 1;
                 if (leftIndex < Tree.Length && Tree[leftIndex] != null)
