@@ -14,21 +14,45 @@ namespace AlgorithmsDataStructures2
             // 2 - 7
             // 3 - 15
 
-            // aBST tree = new aBST(3);
+            aBST tree = new aBST(3);
             // int fiveKeyIndex = tree.AddKey(5);
             // int threeKeyIndex = tree.AddKey(3);
             // int fourKeyIndex = tree.AddKey(4);
             // int twoKeyIndex = tree.AddKey(2);
+            // int oneKeyIndex = tree.AddKey(1);
+            // int sixKeyIndex = tree.AddKey(6);
+            // int sevenKeyIndex = tree.AddKey(7);
+            
+            
+            
+            Console.WriteLine("tree:");
+            Console.Write(string.Join(", ", tree.Tree));
+            Console.WriteLine();
+            
+
+            Console.WriteLine("BEFORE");
+            Console.Write("All Nodes: ");
+            List<int> allNodes = tree.WideAllNodes();
+            foreach (var node in allNodes)
+            {
+                Console.Write($"{tree.Tree[node]} ");
+            }
+
+            Console.WriteLine();
+            tree.RemoveNodeByKey(2);
+
+            Console.WriteLine("AFTER");
+            allNodes = tree.WideAllNodes();
+            foreach (var node in allNodes)
+            {
+                Console.Write($"{tree.Tree[node]} ");
+            }
+
+            Console.WriteLine();
+
 
             int[] numbers = new[] { 7, 2, 4, 5, 3, 1, 6 };
-            int[] testNumbers = new[] { 1,2,3,4,5,6,7 };
-            
-            int rootIndex = numbers.Length % 2 == 0 ? numbers.Length / 2 - 1 : numbers.Length / 2;
 
-            int[] result = BalancedBST.GenerateBBSTArray(numbers);
-
-            Console.WriteLine(string.Join(", ", result));
-            
             // BSTNode<int> rootNode = new BSTNode<int>(4, 4, null);
             // List<int> values = new List<int> { 2, 1, 3, 6, 5, 7 };
             // BST<int> tree = new BST<int>(null);
@@ -77,21 +101,6 @@ namespace AlgorithmsDataStructures2
             // int maxLevel = tree.FindLevelWithMaxSum();
             // Console.WriteLine();
             // Console.WriteLine($"lvl with max sum {maxLevel}");
-
-            // List<List<BSTNode<int>>> maxSumPaths = tree.GetMaxSumPaths();
-            // for (int i = 0; i < maxSumPaths.Count; i++)
-            // {
-            //     Console.WriteLine($"Путь номер {i + 1}");
-            //     int count = 0;
-            //     for (int j = 0; j < maxSumPaths[i].Count; j++)
-            //     {
-            //         count += maxSumPaths[i][j].NodeKey;
-            //         Console.WriteLine(maxSumPaths[i][j].NodeKey);
-            //     }
-            //
-            //     Console.WriteLine($"MAX {count}");
-            // }
-            // Console.WriteLine($"Найденный ключ в дереве: {resultNode.NodeKey}");
         }
     }
 }

@@ -117,7 +117,7 @@ namespace AlgorithmsDataStructures2
             int firstIndex = firstElementIndex;
             int secondIndex = secondElementIndex;
 
-            
+
             while (firstIndex != secondIndex)
             {
                 if (firstIndex > secondIndex)
@@ -154,6 +154,74 @@ namespace AlgorithmsDataStructures2
             }
 
             return allNodes;
+        }
+
+        public bool RemoveNodeByKey(int keyToRemove)
+        {
+            int? indexToRemove = FindKeyIndex(keyToRemove);
+            if (indexToRemove == null)
+                return false;
+
+            int index = indexToRemove.Value;
+            
+            int leftChildIndex = index * 2 + 1;
+            int rightChildIndex = index * 2 + 2;
+            
+            bool hasNoLeftChild = leftChildIndex >= Tree.Length || Tree[leftChildIndex] == null;
+            bool hasNoRightChild = rightChildIndex >= Tree.Length || Tree[rightChildIndex] == null;
+            
+            if (hasNoLeftChild && hasNoRightChild)
+            {
+                Tree[index] = null;
+                ShiftElementsLeft(index);
+                return true;
+            }
+            
+            if (hasNoLeftChild && !hasNoRightChild)
+            {
+                Tree[index] = Tree[rightChildIndex];
+                ShiftElementsLeft(index);
+                return true;
+            }
+            
+            if (hasNoRightChild && !hasNoLeftChild)
+            {
+                Tree[index] = Tree[leftChildIndex];
+                ShiftElementsLeft(index);
+                return true;
+            }
+            
+            if (!hasNoRightChild && !hasNoLeftChild)
+            {
+                int minRightChildIndex = FindMin(rightChildIndex);
+                Tree[index] = Tree[minRightChildIndex];
+                ShiftElementsLeft(minRightChildIndex);
+                return true;    
+            }
+
+            return false;
+        }
+        
+        private void ShiftElementsLeft(int startIndex)
+        {
+            for (int i = startIndex; i < Tree.Length - 1; i++)
+            {
+                Tree[i] = Tree[i + 1];
+            }
+            
+            Tree[Tree.Length - 1] = null;
+        }
+
+
+        public int FindMin(int startIndex)
+        {
+            int currentIndex = startIndex;
+            while (currentIndex * 2 + 1 < Tree.Length && Tree[currentIndex * 2 + 1] != null)
+            {
+                currentIndex = currentIndex * 2 + 1;
+            }
+
+            return currentIndex;
         }
     }
 }
