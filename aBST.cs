@@ -9,9 +9,9 @@ namespace AlgorithmsDataStructures2
 
         public aBST(int depth)
         {
-            int treeSize = depth <= 0 ? 1 : (int)Math.Pow(depth + 1, 2) - 1;
-            Tree = new int?[treeSize];
-            for (int i = 0; i < treeSize; i++)
+            int TreeSize = depth <= 0 ? 1 : (int)Math.Pow(depth + 1, 2) - 1;
+            Tree = new int?[TreeSize];
+            for (int i = 0; i < TreeSize; i++)
                 Tree[i] = null;
         }
 
@@ -158,69 +158,48 @@ namespace AlgorithmsDataStructures2
 
         public bool RemoveNodeByKey(int keyToRemove)
         {
+            if (Tree == null || Tree.Length == 0)
+                return false;
+            
             int? indexToRemove = FindKeyIndex(keyToRemove);
             if (indexToRemove == null)
                 return false;
 
             int index = indexToRemove.Value;
-            
-            int leftChildIndex = index * 2 + 1;
-            int rightChildIndex = index * 2 + 2;
-            
-            bool hasNoLeftChild = leftChildIndex >= Tree.Length || Tree[leftChildIndex] == null;
-            bool hasNoRightChild = rightChildIndex >= Tree.Length || Tree[rightChildIndex] == null;
-            
-            if (hasNoLeftChild && hasNoRightChild)
-            {
-                Tree[index] = null;
-                ShiftElementsLeft(index);
-                return true;
-            }
-            
-            if (hasNoLeftChild && !hasNoRightChild)
-            {
-                Tree[index] = Tree[rightChildIndex];
-                ShiftElementsLeft(index);
-                return true;
-            }
-            
-            if (hasNoRightChild && !hasNoLeftChild)
-            {
-                Tree[index] = Tree[leftChildIndex];
-                ShiftElementsLeft(index);
-                return true;
-            }
-            
-            if (!hasNoRightChild && !hasNoLeftChild)
-            {
-                int minRightChildIndex = FindMin(rightChildIndex);
-                Tree[index] = Tree[minRightChildIndex];
-                ShiftElementsLeft(minRightChildIndex);
-                return true;    
-            }
+            Tree[index] = null;
 
-            return false;
+            BalanceTree();
+            return true;
+        }
+
+        public void BalanceTree()
+        {
+            List<int> nodes = new List<int>();
+            for (int i = 0; i < Tree.Length; i++)
+            {
+                if (Tree[i] != null)
+                    nodes.Add(Tree[i].Value);
+            }
+            Tree = new int?[Tree.Length];
+
+            foreach (var node in nodes)
+            {
+                AddKey(node);
+            }
         }
         
-        private void ShiftElementsLeft(int startIndex)
+        private int ShiftElements(int currentIndex)
         {
-            for (int i = startIndex; i < Tree.Length - 1; i++)
+            if (currentIndex * 2 + 2 > Tree.Length || Tree[currentIndex * 2 + 2] == null)
             {
-                Tree[i] = Tree[i + 1];
-            }
-            
-            Tree[Tree.Length - 1] = null;
-        }
-        
-        public int FindMin(int startIndex)
-        {
-            int currentIndex = startIndex;
-            while (currentIndex * 2 + 1 < Tree.Length && Tree[currentIndex * 2 + 1] != null)
-            {
-                currentIndex = currentIndex * 2 + 1;
+                int value = Tree[currentIndex].Value;
+                Tree[currentIndex] = null;
+                return value;
             }
 
-            return currentIndex;
+            int currentElement = Tree[currentIndex].Value;
+            Tree[currentIndex] = ShiftElements(currentIndex * 2 + 2);
+            return currentElement;
         }
     }
 }
