@@ -211,8 +211,7 @@ namespace AlgorithmsDataStructures2
             
             Tree[Tree.Length - 1] = null;
         }
-
-
+        
         public int FindMin(int startIndex)
         {
             int currentIndex = startIndex;

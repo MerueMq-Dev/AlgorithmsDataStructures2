@@ -42,6 +42,7 @@
     <ItemGroup>
         <Compile Include="aBST.cs" />
         <Compile Include="BalancedBST.cs" />
+        <Compile Include="BalancedBSTUtility.cs" />
         <Compile Include="BST.cs" />
         <Compile Include="Program.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>

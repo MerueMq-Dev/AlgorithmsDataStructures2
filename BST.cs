@@ -33,30 +33,7 @@ namespace AlgorithmsDataStructures2
         }
     }
 
-    public class BSTNode
-    {
-        public int NodeKey;
-        public BSTNode Parent;
-        public BSTNode LeftChild;
-        public BSTNode RightChild;
-
-        public BSTNode(int key, BSTNode parent, BSTNode leftChild = null, BSTNode rightChild = null)
-        {
-            NodeKey = key;
-            Parent = parent;
-            LeftChild = leftChild;
-            RightChild = rightChild;
-        }
-
-        public BSTNode(int key, BSTNode parent)
-        {
-            NodeKey = key;
-            Parent = parent;
-            LeftChild = null;
-            RightChild = null;
-        }
-    }
-
+    
     public class BSTFind<T>
     {
         public BSTNode<T> Node;

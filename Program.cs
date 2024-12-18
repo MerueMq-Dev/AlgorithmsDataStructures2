@@ -14,7 +14,7 @@ namespace AlgorithmsDataStructures2
             // 2 - 7
             // 3 - 15
 
-            aBST tree = new aBST(3);
+            // aBST tree = new aBST(4);
             // int fiveKeyIndex = tree.AddKey(5);
             // int threeKeyIndex = tree.AddKey(3);
             // int fourKeyIndex = tree.AddKey(4);
@@ -22,37 +22,54 @@ namespace AlgorithmsDataStructures2
             // int oneKeyIndex = tree.AddKey(1);
             // int sixKeyIndex = tree.AddKey(6);
             // int sevenKeyIndex = tree.AddKey(7);
-            
-            
-            
-            Console.WriteLine("tree:");
-            Console.Write(string.Join(", ", tree.Tree));
-            Console.WriteLine();
-            
+            //
+            // int min = tree.FindMin(fourKeyIndex);
+            //
+            // int? minNode = tree.Tree[min];
+            //
+            //
+            // Console.WriteLine("BEFORE");
+            // Console.Write("All Nodes: ");
+            // List<int> allNodes = tree.WideAllNodes();
+            // foreach (var node in allNodes)
+            // {
+            //     Console.Write($"{tree.Tree[node]} ");
+            // }
+            //
+            // Console.WriteLine();
+            // tree.RemoveNodeByKey(2);
+            //
+            // Console.WriteLine("AFTER");
+            // allNodes = tree.WideAllNodes();
+            // foreach (var node in allNodes)
+            // {
+            //     Console.Write($"{tree.Tree[node]} ");
+            // }
 
-            Console.WriteLine("BEFORE");
-            Console.Write("All Nodes: ");
-            List<int> allNodes = tree.WideAllNodes();
-            foreach (var node in allNodes)
+            Console.WriteLine();
+
+
+            // int[] numbers = new[] { 7, 2, 4, 5, 3, 1, 6 };
+            int[] numbers = new[] { 3,2,1,5,44 };
+            BalancedBST tree = new BalancedBST();
+            tree.GenerateTree(numbers);
+            List<BSTNode> allNodes = tree.WideAllNodes();
+            int currentLevel = 0;
+            foreach (BSTNode node in allNodes)
             {
-                Console.Write($"{tree.Tree[node]} ");
+                if (currentLevel < node.Level)
+                {
+                    Console.WriteLine();
+                    currentLevel += 1;
+                }
+            
+                Console.Write($" {node.NodeKey} ");
             }
 
-            Console.WriteLine();
-            tree.RemoveNodeByKey(2);
+            bool isBalanced = tree.IsBalanced(tree.Root);
 
-            Console.WriteLine("AFTER");
-            allNodes = tree.WideAllNodes();
-            foreach (var node in allNodes)
-            {
-                Console.Write($"{tree.Tree[node]} ");
-            }
-
-            Console.WriteLine();
-
-
-            int[] numbers = new[] { 7, 2, 4, 5, 3, 1, 6 };
-
+            Console.WriteLine($"isBalanced: {isBalanced}");
+            
             // BSTNode<int> rootNode = new BSTNode<int>(4, 4, null);
             // List<int> values = new List<int> { 2, 1, 3, 6, 5, 7 };
             // BST<int> tree = new BST<int>(null);
