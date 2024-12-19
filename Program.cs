@@ -24,7 +24,7 @@ namespace AlgorithmsDataStructures2
             // int eightKeyIndex = tree.AddKey(8);
             //
             // int sevenKeyIndex = tree.AddKey(7);
-            
+
             // Console.WriteLine("BEFORE");
             // Console.WriteLine(string.Join(", ", tree.Tree).Replace(" ", "_"));
             // Console.Write("All Nodes: ");
@@ -50,9 +50,16 @@ namespace AlgorithmsDataStructures2
 
 
             // int[] numbers = new[] { 7, 2, 4, 5, 3, 1, 6 };
-            int[] numbers = new[] { 1,6,9,11 };
+            int[] numbers = new[] { 13, 11, 15 };
             BalancedBST tree = new BalancedBST();
-            
+            foreach (var number in numbers)
+            {
+                tree.AddKey(number);
+            }
+
+            Console.WriteLine($"TEST {tree.IsBalanced(tree.Root)}");
+            // tree.GenerateTree(numbers);
+
             List<BSTNode> allNodes = tree.WideAllNodes();
             int currentLevel = 0;
             foreach (BSTNode node in allNodes)
@@ -62,16 +69,62 @@ namespace AlgorithmsDataStructures2
                     Console.WriteLine();
                     currentLevel += 1;
                 }
-            
+
                 Console.Write($" {node.NodeKey} ");
             }
-            
-            bool isBalanced = tree.IsValidBST();
-            
-            Console.WriteLine($"IsValidBST: {isBalanced}");
-            
-            
-            
+
+            int[] balancedNumbers = new[] { 6, 1, 9, 11 };
+            BalancedBST balancedTree = new BalancedBST();
+            foreach (var number in balancedNumbers)
+            {
+                balancedTree.AddKey(number);
+            }
+
+            Console.WriteLine("Balanced Tree: " +
+                              (balancedTree.IsBalanced(balancedTree.Root) ? "Balanced" : "Not Balanced"));
+
+            int[] unbalancedLeftNumbers = new[] { 1, 2, 3, 4, 5, 6, 7 };
+            BalancedBST unbalancedLeftTree = new BalancedBST();
+            foreach (var number in unbalancedLeftNumbers)
+            {
+                unbalancedLeftTree.AddKey(number);
+            }
+
+            Console.WriteLine(
+                "Unbalanced Left Tree: " +
+                (unbalancedLeftTree.IsBalanced(unbalancedLeftTree.Root) ? "Balanced" : "Not Balanced"));
+
+            // Несбалансированное дерево (слишком глубокое правое поддерево)
+            int[] unbalancedRightNumbers = new[] { 7, 6, 5, 4, 3, 2, 1 };
+            BalancedBST unbalancedRightTree = new BalancedBST();
+            foreach (var number in unbalancedRightNumbers)
+            {
+                unbalancedRightTree.AddKey(number);
+            }
+
+            Console.WriteLine("Unbalanced Right Tree: " +
+                              (unbalancedRightTree.IsBalanced(unbalancedRightTree.Root) ? "Balanced" : "Not Balanced"));
+
+            // Сбалансированное дерево с несколькими уровнями
+            int[] balancedMultiLevelNumbers = new[] { 10, 5, 15, 2, 7, 12, 20 };
+            BalancedBST balancedMultiLevelTree = new BalancedBST();
+            foreach (var number in balancedMultiLevelNumbers)
+            {
+                balancedMultiLevelTree.AddKey(number);
+            }
+
+            Console.WriteLine("Balanced Multi-level Tree: " +
+                              (balancedMultiLevelTree.IsBalanced(balancedMultiLevelTree.Root)
+                                  ? "Balanced"
+                                  : "Not Balanced"));
+
+            // Пустое дерево
+            BalancedBST emptyTree = new BalancedBST();
+            emptyTree.GenerateTree(new int[] { });
+
+            Console.WriteLine("Empty Tree: " +
+                              (emptyTree.IsBalanced(balancedMultiLevelTree.Root) ? "Balanced" : "Not Balanced"));
+
             // BSTNode<int> rootNode = new BSTNode<int>(4, 4, null);
             // List<int> values = new List<int> { 2, 1, 3, 6, 5, 7 };
             // BST<int> tree = new BST<int>(null);

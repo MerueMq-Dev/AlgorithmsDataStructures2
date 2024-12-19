@@ -69,9 +69,19 @@ namespace AlgorithmsDataStructures2
 
         public bool IsBalanced(BSTNode rootNode)
         {
-            int heightDifference = CalculateHeight(rootNode.LeftChild) - CalculateHeight(rootNode.RightChild);
-            int balanceDifference = Math.Abs(heightDifference);
-            return balanceDifference <= 1;
+            if (rootNode == null)
+            {
+                return true;
+            }
+
+            int leftHeight = CalculateHeight(rootNode.LeftChild);
+            int rightHeight = CalculateHeight(rootNode.RightChild);
+
+            if (Math.Abs(leftHeight - rightHeight) <= 1 && IsBalanced(rootNode.LeftChild)
+                                                        && IsBalanced(rootNode.RightChild))
+                return true;
+
+            return false;
         }
 
         private int CalculateHeight(BSTNode rootNode)
@@ -94,13 +104,13 @@ namespace AlgorithmsDataStructures2
         {
             if (node == null)
                 return true;
-            
-            if ((minValue.HasValue && node.NodeKey <= minValue.Value) || 
+
+            if ((minValue.HasValue && node.NodeKey <= minValue.Value) ||
                 (maxValue.HasValue && node.NodeKey >= maxValue.Value))
             {
                 return false;
             }
-            
+
             return IsValidBST(node.LeftChild, minValue, node.NodeKey) &&
                    IsValidBST(node.RightChild, node.NodeKey, maxValue);
         }
@@ -128,6 +138,49 @@ namespace AlgorithmsDataStructures2
             }
 
             return allNodes;
+        }
+
+        public bool AddKey(int key)
+        {
+            if (Root == null)
+            {
+                Root = new BSTNode(key, null, 0);
+                return true;
+            }
+
+            BSTNode currentNode = Root;
+            while (currentNode != null)
+            {
+                if (key == currentNode.NodeKey)
+                    break;
+
+                if (key > currentNode.NodeKey)
+                {
+                    if (currentNode.RightChild == null)
+                    {
+                        currentNode.RightChild = new BSTNode(key, currentNode,
+                            currentNode.Level + 1);
+                        return true;
+                    }
+
+                    currentNode = currentNode.RightChild;
+                    continue;
+                }
+
+                if (key < currentNode.NodeKey)
+                {
+                    if (currentNode.LeftChild == null)
+                    {
+                        currentNode.LeftChild = new BSTNode(key,
+                            currentNode, currentNode.Level + 1);
+                        return true;
+                    }
+
+                    currentNode = currentNode.LeftChild;
+                }
+            }
+
+            return false;
         }
     }
 }
