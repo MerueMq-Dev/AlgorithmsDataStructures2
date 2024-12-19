@@ -8,7 +8,7 @@ namespace AlgorithmsDataStructures2
         public int NodeKey;
         public BSTNode Parent;
         public BSTNode LeftChild;
-        public BSTNode RightChild;	
+        public BSTNode RightChild;
         public int Level;
 
         public BSTNode(int key, BSTNode parent)
@@ -65,7 +65,7 @@ namespace AlgorithmsDataStructures2
 
             return node;
         }
-        
+
 
         public bool IsBalanced(BSTNode rootNode)
         {
@@ -78,13 +78,32 @@ namespace AlgorithmsDataStructures2
         {
             if (rootNode == null)
                 return 0;
-            
+
             int leftHeight = CalculateHeight(rootNode.LeftChild);
             int rightHeight = CalculateHeight(rootNode.RightChild);
-            
+
             return 1 + Math.Max(leftHeight, rightHeight);
         }
 
+        public bool IsValidBST()
+        {
+            return IsValidBST(Root, null, null);
+        }
+
+        private bool IsValidBST(BSTNode node, int? minValue, int? maxValue)
+        {
+            if (node == null)
+                return true;
+            
+            if ((minValue.HasValue && node.NodeKey <= minValue.Value) || 
+                (maxValue.HasValue && node.NodeKey >= maxValue.Value))
+            {
+                return false;
+            }
+            
+            return IsValidBST(node.LeftChild, minValue, node.NodeKey) &&
+                   IsValidBST(node.RightChild, node.NodeKey, maxValue);
+        }
 
         public List<BSTNode> WideAllNodes()
         {
