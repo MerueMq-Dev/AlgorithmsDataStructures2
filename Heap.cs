@@ -95,7 +95,7 @@ namespace AlgorithmsDataStructures2
             int smallestElementIndex = -1;
             for (int i = 0; i < HeapArray.Length; i++)
             {
-                if (HeapArray[i] == -1)
+                if (HeapArray[i] == 0)
                 {
                     smallestElementIndex = i;
                     break;
