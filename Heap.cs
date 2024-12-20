@@ -31,13 +31,14 @@ namespace AlgorithmsDataStructures2
                 return -1;
             
             int max = HeapArray[0];
+            if (max == 0)
+                return -1;
             
             HeapArray[0] = HeapArray[HeapArray.Length - 1];  
             
             HeapArray[HeapArray.Length - 1] = 0;
             
             int heapSize = HeapArray.Length - 1;  
-            
             for (int currentIndex = 0;true;)
             {
                 int leftChildIndex = currentIndex * 2 + 1;
