@@ -31,32 +31,30 @@ namespace AlgorithmsDataStructures2
                 return -1;
 
             int max = HeapArray[0];
-            HeapArray[0] = 0;
 
-            for (int currentIndex = 0; currentIndex < HeapArray.Length;)
+            for(int currentIndex = 0;true;)
             {
-                int key = HeapArray[currentIndex];
                 int leftChildIndex = currentIndex * 2 + 1;
                 int rightChildIndex = currentIndex * 2 + 2;
-
-                if (rightChildIndex < HeapArray.Length && HeapArray[rightChildIndex] > key &&
-                    HeapArray[rightChildIndex] > HeapArray[leftChildIndex])
+                int largestIndex = currentIndex;
+                
+                if (leftChildIndex < HeapArray.Length && HeapArray[leftChildIndex] > HeapArray[largestIndex])
                 {
-                    (HeapArray[rightChildIndex], HeapArray[currentIndex]) =
-                        (HeapArray[currentIndex], HeapArray[rightChildIndex]);
-                    currentIndex = rightChildIndex;
-                    continue;
+                    largestIndex = leftChildIndex;
                 }
-
-                if (leftChildIndex < HeapArray.Length && HeapArray[leftChildIndex] > key)
+                
+                if (rightChildIndex < HeapArray.Length && HeapArray[rightChildIndex] > HeapArray[largestIndex])
                 {
-                    (HeapArray[leftChildIndex], HeapArray[currentIndex]) =
-                        (HeapArray[currentIndex], HeapArray[leftChildIndex]);
-                    currentIndex = leftChildIndex;
-                    continue;
+                    largestIndex = rightChildIndex;
                 }
-
-                currentIndex = currentIndex * 2 + 1;
+                
+                if (largestIndex <= currentIndex)
+                    break;
+                
+                (HeapArray[currentIndex], HeapArray[largestIndex]) =
+                    (HeapArray[largestIndex], HeapArray[currentIndex]);
+                
+                currentIndex = largestIndex;
             }
 
             return max;
@@ -69,16 +67,16 @@ namespace AlgorithmsDataStructures2
 
         private bool IsHeap(int currentIndex)
         {
-            if (HeapArray == null || HeapArray.Length == 0 || currentIndex > HeapArray.Length - 1 ||
-                HeapArray[currentIndex] == -1)
+            if (currentIndex >= HeapArray.Length)
                 return true;
 
-            int rightChild = currentIndex * 2 + 2;
             int leftChild = currentIndex * 2 + 1;
+            int rightChild = currentIndex * 2 + 2;
 
+            if (leftChild < HeapArray.Length && HeapArray[leftChild] > HeapArray[currentIndex])
+                return false;
 
-            if ((rightChild < HeapArray.Length - 1 && HeapArray[rightChild] > HeapArray[currentIndex])
-                || leftChild < HeapArray.Length - 1 && (HeapArray[leftChild] > HeapArray[currentIndex]))
+            if (rightChild < HeapArray.Length && HeapArray[rightChild] > HeapArray[currentIndex])
                 return false;
 
             return IsHeap(leftChild) && IsHeap(rightChild);
@@ -95,38 +93,36 @@ namespace AlgorithmsDataStructures2
             if (HeapArray[HeapArray.Length - 1] != 0)
                 return false;
 
-            int smallestElementIndex = HeapArray.Length - 1;
+            int smallestElementIndex = -1;
             for (int i = 0; i < HeapArray.Length; i++)
             {
                 if (HeapArray[i] == 0)
                 {
                     smallestElementIndex = i;
-                    HeapArray[i] = key;
                     break;
                 }
             }
 
-            int parentIndex = (smallestElementIndex - 1) / 2;
+            if (smallestElementIndex == -1)
+                return false;
 
-            for (int currentIndex = smallestElementIndex; currentIndex > 0 && parentIndex > 0;)
+            HeapArray[smallestElementIndex] = key;
+
+
+            // int parentIndex = (smallestElementIndex - 1) / 2;
+            for (int currentIndex = smallestElementIndex; currentIndex > 0;)
             {
-                parentIndex = (currentIndex - 1) / 2;
-                int leftChildIndex = currentIndex * 2 + 1;
-                int rightChildIndex = currentIndex * 2 + 2;
-                if (rightChildIndex < HeapArray.Length
-                    && leftChildIndex < HeapArray.Length
-                    && key < HeapArray[parentIndex]
-                    && key > HeapArray[leftChildIndex]
-                    && key > HeapArray[rightChildIndex])
-                    return true;
-
+                int parentIndex = (currentIndex - 1) / 2;
+                
                 if (HeapArray[parentIndex] < HeapArray[currentIndex])
                 {
                     (HeapArray[currentIndex], HeapArray[parentIndex]) =
                         (HeapArray[parentIndex], HeapArray[currentIndex]);
+                    currentIndex = parentIndex;
+                    continue;
                 }
 
-                currentIndex = (currentIndex - 1) / 2;
+                break;
             }
 
             return true;
