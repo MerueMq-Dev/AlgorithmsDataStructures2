@@ -15,7 +15,7 @@ namespace AlgorithmsDataStructures2
             Console.WriteLine($"IsHeap: {heap.IsHeap()}");
             
             Console.WriteLine(string.Join(", ", heap.HeapArray).Replace("-1", "_"));
-            int max = heap.GetMax();
+                int max = heap.GetMax();
             
             Console.WriteLine(max);
             Console.WriteLine(string.Join(", ", heap.HeapArray).Replace("-1", "_"));
