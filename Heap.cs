@@ -27,39 +27,45 @@ namespace AlgorithmsDataStructures2
 
         public int GetMax()
         {
-            if (HeapArray == null || HeapArray.Length == 0 || HeapArray[0] == 0)
+            if (HeapArray == null || HeapArray.Length == 0)
                 return -1;
-
-            int max = HeapArray[0];
-            HeapArray[0] = 0;
             
-            for(int currentIndex = 0;true;)
+            int max = HeapArray[0];
+            
+            HeapArray[0] = HeapArray[HeapArray.Length - 1];  
+            
+            HeapArray[HeapArray.Length - 1] = 0;
+            
+            int heapSize = HeapArray.Length - 1;  
+            
+            for (int currentIndex = 0;true;)
             {
                 int leftChildIndex = currentIndex * 2 + 1;
                 int rightChildIndex = currentIndex * 2 + 2;
                 int largestIndex = currentIndex;
                 
-                if (leftChildIndex < HeapArray.Length && HeapArray[leftChildIndex] > HeapArray[largestIndex])
+                if (leftChildIndex < heapSize && HeapArray[leftChildIndex] > HeapArray[largestIndex])
                 {
                     largestIndex = leftChildIndex;
                 }
                 
-                if (rightChildIndex < HeapArray.Length && HeapArray[rightChildIndex] > HeapArray[largestIndex])
+                if (rightChildIndex < heapSize && HeapArray[rightChildIndex] > HeapArray[largestIndex])
                 {
                     largestIndex = rightChildIndex;
                 }
                 
-                if (largestIndex <= currentIndex)
+                if (largestIndex == currentIndex)
                     break;
                 
                 (HeapArray[currentIndex], HeapArray[largestIndex]) =
                     (HeapArray[largestIndex], HeapArray[currentIndex]);
-                
                 currentIndex = largestIndex;
             }
 
             return max;
         }
+
+
 
         public bool IsHeap()
         {

@@ -9,9 +9,9 @@ namespace AlgorithmsDataStructures2
     {
         public static void Main(string[] args)
         {
-            int[] keys = new[] { 8, 3, 32, 6, 5, 2, 112, 1231, 2223,98, 321 };
+            int[] keys = new[] { 8,2,1};
             Heap heap = new Heap();
-            heap.MakeHeap(keys, 4);
+            heap.MakeHeap(keys, 1);
             Console.WriteLine($"IsHeap: {heap.IsHeap()}");
             
             Console.WriteLine(string.Join(", ", heap.HeapArray).Replace("-1", "_"));
@@ -19,11 +19,12 @@ namespace AlgorithmsDataStructures2
             
             Console.WriteLine(max);
             Console.WriteLine(string.Join(", ", heap.HeapArray).Replace("-1", "_"));
-            for (int i = 0; i < heap.HeapArray.Length; i++)
-            {
-                Console.Write($"{i}, ");
-            }
-            
+
+
+
+            int max2 = heap.GetMax();
+            Console.WriteLine(string.Join(", ", heap.HeapArray).Replace("-1", "_"));
+            Console.WriteLine(max2);
             Console.WriteLine();
             // heap.HeapArray[1] = 1;
             
