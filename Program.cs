@@ -19,7 +19,12 @@ namespace AlgorithmsDataStructures2
 
             Console.WriteLine(max);
             Console.WriteLine(string.Join(", ", heap.HeapArray).Replace("-1", "_"));
-            heap.HeapArray[1] = 1;
+            for (int i = 0; i < heap.HeapArray.Length; i++)
+            {
+                Console.Write($"{i}, ");
+            }
+            Console.WriteLine();
+            // heap.HeapArray[1] = 1;
             
             Console.WriteLine($"IsHeap: {heap.IsHeap()}");
 

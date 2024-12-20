@@ -16,8 +16,6 @@ namespace AlgorithmsDataStructures2
         {
             int heapSize = depth <= 0 ? 1 : (int)Math.Pow(depth + 1, 2) - 1;
             HeapArray = new int[heapSize];
-            for (int i = 0; i < heapSize; i++)
-                HeapArray[i] = -1;
 
             foreach (var key in keys)
             {
@@ -29,11 +27,11 @@ namespace AlgorithmsDataStructures2
 
         public int GetMax()
         {
-            if (HeapArray == null || HeapArray.Length == 0 || HeapArray[0] == -1)
+            if (HeapArray == null || HeapArray.Length == 0 || HeapArray[0] == 0)
                 return -1;
 
             int max = HeapArray[0];
-            HeapArray[0] = -1;
+            HeapArray[0] = 0;
 
             for (int currentIndex = 0; currentIndex < HeapArray.Length;)
             {
@@ -94,13 +92,13 @@ namespace AlgorithmsDataStructures2
             if (key < 0)
                 return false;
 
-            if (HeapArray[HeapArray.Length - 1] != -1)
+            if (HeapArray[HeapArray.Length - 1] != 0)
                 return false;
 
             int smallestElementIndex = HeapArray.Length - 1;
             for (int i = 0; i < HeapArray.Length; i++)
             {
-                if (HeapArray[i] == -1)
+                if (HeapArray[i] == 0)
                 {
                     smallestElementIndex = i;
                     HeapArray[i] = key;
