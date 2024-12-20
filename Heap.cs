@@ -33,7 +33,8 @@ namespace AlgorithmsDataStructures2
                 return -1;
 
             int max = HeapArray[0];
-
+            HeapArray[0] = -1;
+            
             for(int currentIndex = 0;true;)
             {
                 int leftChildIndex = currentIndex * 2 + 1;
