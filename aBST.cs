@@ -8,10 +8,10 @@ namespace AlgorithmsDataStructures2
         public int?[] Tree;
 
         public aBST(int depth)
-        {
-            int TreeSize = depth <= 0 ? 1 : (int)Math.Pow(depth + 1, 2) - 1;
-            Tree = new int?[TreeSize];
-            for (int i = 0; i < TreeSize; i++)
+        {   
+            int treeSize = depth <= 0 ? 1 : (int)Math.Pow(depth + 1, 2) - 1;
+            Tree = new int?[treeSize];
+            for (int i = 0; i < treeSize; i++)
                 Tree[i] = null;
         }
 

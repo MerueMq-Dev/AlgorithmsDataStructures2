@@ -85,7 +85,7 @@ namespace AlgorithmsDataStructures2
         }
 
         private int CalculateHeight(BSTNode rootNode)
-        {
+            {
             if (rootNode == null)
                 return 0;
 
@@ -94,8 +94,8 @@ namespace AlgorithmsDataStructures2
 
             return 1 + Math.Max(leftHeight, rightHeight);
         }
-
-        public bool IsValidBST()
+    
+            public bool IsValidBST()
         {
             return IsValidBST(Root, null, null);
         }
