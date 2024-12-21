@@ -39,8 +39,6 @@ namespace AlgorithmsDataStructures2
             vertex[freePosition] = newVertex;
         }
 
-        // здесь и далее, параметры v -- индекс вершины
-        // в списке vertex
         public void RemoveVertex(int v)
         {
             if (vertex == null)
@@ -58,7 +56,6 @@ namespace AlgorithmsDataStructures2
                 RemoveEdge(i, v);
             }
             vertex[v] = null;
-            // ваш код удаления вершины со всеми её рёбрами
         }
 
         public bool IsEdge(int v1, int v2)
@@ -71,8 +68,7 @@ namespace AlgorithmsDataStructures2
 
             if (vertex[v1] == null || vertex[v2] == null)
                 return false;
-
-            // true если есть ребро между вершинами v1 и v2
+            
             return m_adjacency[v1, v2] == 1 && m_adjacency[v2, v1] == 1;
         }
 
