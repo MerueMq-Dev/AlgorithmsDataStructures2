@@ -67,6 +67,7 @@
     <ItemGroup>
         <Compile Include="aBSTTests.cs" />
         <Compile Include="BSTTests.cs" />
+        <Compile Include="SimpleGraphTests.cs" />
         <Compile Include="SimpleTreeTests.cs" />
         <Compile Include="Properties\AssemblyInfo.cs"/>
     </ItemGroup>
