@@ -127,7 +127,7 @@ namespace AlgorithmsDataStructures2
             if (HeapArray == null)
                 return false;
 
-            if (heapToMerge == null || heapToMerge.CurrentSize == 0)
+            if (heapToMerge == null || heapToMerge.HeapArray == null || heapToMerge.CurrentSize == 0)
                 return true;
 
             int[] mergedArray = new int[CurrentSize + heapToMerge.CurrentSize];
