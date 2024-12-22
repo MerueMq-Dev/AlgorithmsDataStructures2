@@ -73,12 +73,12 @@ namespace AlgorithmsDataStructures2
         {
             int max = -1;
             int maxIndex = -1;
-            for(int i = 0; i i < CurrentSize; i++)
+            for(int i = 0; i < CurrentSize; i++)
             {
                 if (HeapArray[i] >= low && HeapArray[i] <= high && max < HeapArray[i])
                 {
                     maxIndex = i;
-                    max = value;
+                    max = HeapArray[i];
                 }
             }
 
