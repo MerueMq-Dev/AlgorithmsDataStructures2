@@ -30,15 +30,16 @@ namespace AlgorithmsDataStructures2
             // Console.WriteLine();
             // heap.HeapArray[1] = 1;
 
-            SimpleGraph simpleGraph = new SimpleGraph(4);
+            DirectedGraph simpleGraph = new DirectedGraph(4);
             simpleGraph.AddVertex(1);
             simpleGraph.AddVertex(2);
             simpleGraph.AddVertex(3);
             simpleGraph.AddVertex(4);
 
-            simpleGraph.AddDirectedEdge(0, 1);
-            simpleGraph.AddDirectedEdge(1, 3);
-            simpleGraph.AddDirectedEdge(3, 0);
+            simpleGraph.AddEdge(0, 1);
+            simpleGraph.AddEdge(1, 3);
+            simpleGraph.AddEdge(3, 0);
+            
             var test = simpleGraph.HasCycle();
             Console.WriteLine($"Has Cycle: {test}");
             // simpleGraph.AddEdge(1, 2);
@@ -60,21 +61,21 @@ namespace AlgorithmsDataStructures2
             }
             
             
-            //
-            // Console.WriteLine();
-            //
-            // Console.WriteLine("AFTER");
-            //
-            // for (int i = 0; i < rows; i++)
-            // {
-            //     for (int j = 0; j < columns; j++)
-            //     {
-            //         Console.Write($"{simpleGraph.m_adjacency[i, j]} ");
-            //     }
-            //
-            //     Console.WriteLine();
-            // }
-            //
+            
+            Console.WriteLine();
+            simpleGraph.RemoveVertex(1);
+            Console.WriteLine("AFTER");
+            
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    Console.Write($"{simpleGraph.m_adjacency[i, j]} ");
+                }
+            
+                Console.WriteLine();
+            }
+            
             // bool isEdge = simpleGraph.IsEdge(1, 2);
             // Console.WriteLine($"IsEdge: {isEdge}");
             //
