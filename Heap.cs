@@ -72,15 +72,17 @@ namespace AlgorithmsDataStructures2
         public int FindMaxInRange(int low, int high)
         {
             int max = -1;
-            foreach (var value in HeapArray)
+            int maxIndex = -1;
+            for(int i = 0; i i < CurrentSize; i++)
             {
-                if (value >= low && value <= high && max < value)
+                if (HeapArray[i] >= low && HeapArray[i] <= high && max < HeapArray[i])
                 {
+                    maxIndex = i;
                     max = value;
                 }
             }
 
-            return max;
+            return maxIndex;
         }
 
         public int Find(Predicate<int> predicate)
