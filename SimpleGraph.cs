@@ -86,6 +86,20 @@ namespace AlgorithmsDataStructures2
             m_adjacency[v1, v2] = 1;
             m_adjacency[v2, v1] = 1;
         }
+        
+        public void AddDirectedEdge(int v1, int v2)
+        {
+            if (vertex == null)
+                return;
+
+            if (v1 >= max_vertex || v2 >= max_vertex)
+                return;
+
+            if (vertex[v1] == null || vertex[v2] == null)
+                return;
+
+            m_adjacency[v1, v2] = 1;
+        }
 
         public void RemoveEdge(int v1, int v2)
         {
@@ -100,6 +114,40 @@ namespace AlgorithmsDataStructures2
 
             m_adjacency[v1, v2] = 0;
             m_adjacency[v2, v1] = 0;
+        }
+        
+        public bool HasCycle()
+        {
+            bool[] visited = new bool[max_vertex];
+            
+            for (int i = 0; i < max_vertex; i++)
+            {
+                if (!visited[i])
+                {
+                    if (IsCyclic(i, visited))
+                        return true;
+                }
+            }
+
+            return false; 
+        }
+        
+        private bool IsCyclic(int vertex, bool[] visited)
+        {
+            if (visited[vertex]) return true;
+
+            visited[vertex] = true;
+            for (int i = 0; i < max_vertex; i++)
+            {
+                if (m_adjacency[vertex, i] == 1)  
+                {
+                    if (IsCyclic(i, visited))
+                        return true; 
+                }
+            }
+
+            visited[vertex] = false;
+            return false;
         }
     }
 }
