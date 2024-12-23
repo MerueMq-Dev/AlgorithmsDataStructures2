@@ -238,5 +238,30 @@ namespace AlgorithmsDataStructures2
 
             return true;
         }
+        
+        public List<T> EvenTrees()
+        {
+            List<T> brokenConnections = new List<T>();
+            List<SimpleTreeNode<T>> nodesToRemove = new List<SimpleTreeNode<T>>();
+            
+            foreach (var child in Root.Children)
+            {
+                int nodesCount = Count(child);
+                if (nodesCount % 2 == 0)
+                {
+                    brokenConnections.Add(Root.NodeValue);
+                    brokenConnections.Add(child.NodeValue);
+                    nodesToRemove.Add(child);
+                }
+            }
+
+            foreach (var node in nodesToRemove)
+            {
+                DeleteNode(node);   
+            }
+            
+            return brokenConnections;
+        }
+        
     }
 }
