@@ -165,9 +165,6 @@ namespace AlgorithmsDataStructures2
             if (vertex[VFrom] == null || vertex[VFrom] == null)
                 return path;
             
-            if (HasCycle())
-                return path;
-            
             Stack<int> stack = new Stack<int>();
             foreach (Vertex<T> vertex in vertex)
             {
