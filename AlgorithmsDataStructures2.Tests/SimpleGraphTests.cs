@@ -8,7 +8,7 @@ namespace AlgorithmsDataStructures2.Tests
         [Fact]
         public void AddVertex_ShouldCreateNewVertexWithoutEdges()
         {
-            SimpleGraph simpleGraph = new SimpleGraph(2);
+            SimpleGraph<int> simpleGraph = new SimpleGraph<int>(2);
             simpleGraph.AddVertex(2);
 
             simpleGraph.vertex.Should().Contain(x => x.Value == 2);
@@ -17,7 +17,7 @@ namespace AlgorithmsDataStructures2.Tests
         [Fact]
         public void AddEdge_ShouldAddEdgeBetweenTwoVertices()
         {
-            SimpleGraph simpleGraph = new SimpleGraph(2);
+            SimpleGraph<int> simpleGraph = new SimpleGraph<int>(2);
             simpleGraph.AddVertex(2);
             simpleGraph.AddVertex(3);
 
@@ -33,7 +33,7 @@ namespace AlgorithmsDataStructures2.Tests
         [Fact]
         public void RemoveEdge_ShouldRemoveEdgeBetweenTwoVertices()
         {
-            SimpleGraph simpleGraph = new SimpleGraph(2);
+            SimpleGraph<int> simpleGraph = new SimpleGraph<int>(2);
             simpleGraph.AddVertex(2);
             simpleGraph.AddVertex(3);
             simpleGraph.AddEdge(0, 1);
@@ -49,7 +49,7 @@ namespace AlgorithmsDataStructures2.Tests
         [Fact]
         public void RemoveVertex_ShouldDeleteVertexAndAllConnectedEdges()
         {
-            SimpleGraph simpleGraph = new SimpleGraph(4);
+            SimpleGraph<int> simpleGraph = new SimpleGraph<int>(4);
             simpleGraph.AddVertex(1);
             simpleGraph.AddVertex(2);
             simpleGraph.AddVertex(3);

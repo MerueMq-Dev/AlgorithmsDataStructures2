@@ -9,34 +9,41 @@ namespace AlgorithmsDataStructures2
     {
         public static void Main(string[] args)
         {
-            SimpleTreeNode<int> parentNode = new SimpleTreeNode<int>(1, null);
-            SimpleTree<int> tree = new SimpleTree<int>(parentNode);
-            SimpleTreeNode<int> nodeValueTwo = new SimpleTreeNode<int>(2, null);
-            SimpleTreeNode<int> nodeValueThree = new SimpleTreeNode<int>(3, null);
-            SimpleTreeNode<int> nodeValueFour = new SimpleTreeNode<int>(4, null);
-            SimpleTreeNode<int> nodeValueFive = new SimpleTreeNode<int>(5, null);
-            SimpleTreeNode<int> nodeValueSix = new SimpleTreeNode<int>(6, null);
-            SimpleTreeNode<int> nodeValueSeven = new SimpleTreeNode<int>(7, null);
-            SimpleTreeNode<int> nodeValueEight = new SimpleTreeNode<int>(8, null);
-            SimpleTreeNode<int> nodeValueNine = new SimpleTreeNode<int>(9, null);
-            SimpleTreeNode<int> nodeValueTen = new SimpleTreeNode<int>(10, null);
-            SimpleTreeNode<int> nodeValueEleven = new SimpleTreeNode<int>(11, null);
-            SimpleTreeNode<int> nodeValueTwelve = new SimpleTreeNode<int>(12, null);
-            
-            tree.AddChild(parentNode, nodeValueTwo);
-            tree.AddChild(nodeValueTwo,nodeValueFive);
-            tree.AddChild(nodeValueTwo, nodeValueSeven);
-            tree.AddChild(parentNode, nodeValueThree);
-            tree.AddChild(nodeValueThree, nodeValueFour);
-            tree.AddChild(parentNode,nodeValueSix);
-            tree.AddChild(nodeValueSix,nodeValueEight);
-            tree.AddChild(nodeValueEight,nodeValueNine);
-            tree.AddChild(nodeValueEight,nodeValueTen);
-            
-            
-            List<int> brokenConnections = tree.EvenTrees();
+            // SimpleTreeNode<int> parentNode = new SimpleTreeNode<int>(1, null);
+            // SimpleTree<int> tree = new SimpleTree<int>(parentNode);
+            // SimpleTreeNode<int> nodeValueTwo = new SimpleTreeNode<int>(2, null);
+            // SimpleTreeNode<int> nodeValueThree = new SimpleTreeNode<int>(3, null);
+            // SimpleTreeNode<int> nodeValueFour = new SimpleTreeNode<int>(4, null);
+            // SimpleTreeNode<int> nodeValueFive = new SimpleTreeNode<int>(5, null);
+            // SimpleTreeNode<int> nodeValueSix = new SimpleTreeNode<int>(6, null);
+            // SimpleTreeNode<int> nodeValueSeven = new SimpleTreeNode<int>(7, null);
+            // SimpleTreeNode<int> nodeValueEight = new SimpleTreeNode<int>(8, null);
+            // SimpleTreeNode<int> nodeValueNine = new SimpleTreeNode<int>(9, null);
+            // SimpleTreeNode<int> nodeValueTen = new SimpleTreeNode<int>(10, null);
+            // SimpleTreeNode<int> nodeValueEleven = new SimpleTreeNode<int>(11, null);
+            // SimpleTreeNode<int> nodeValueTwelve = new SimpleTreeNode<int>(12, null);
+            //
+            // tree.AddChild(parentNode, nodeValueTwo);
+            // tree.AddChild(nodeValueTwo, nodeValueFive);
+            // tree.AddChild(nodeValueTwo, nodeValueSeven);
+            // tree.AddChild(parentNode, nodeValueThree);
+            // tree.AddChild(nodeValueThree, nodeValueFour);
+            // tree.AddChild(parentNode, nodeValueSix);
+            // tree.AddChild(nodeValueSix, nodeValueEight);
+            // tree.AddChild(nodeValueEight, nodeValueNine);
+            // tree.AddChild(nodeValueEight, nodeValueTen);
+            //
+            // List<int> brokenConnections = tree.EvenTrees();
+            //
+            // Console.WriteLine(string.Join(", ", brokenConnections));
 
-            Console.WriteLine(string.Join(", ", brokenConnections));    
+            
+            
+            
+            
+            
+            
+            
             
             // string[] s = new string[] { "1" };
             // int test = Array.IndexOf(s, null);
@@ -59,16 +66,26 @@ namespace AlgorithmsDataStructures2
             // Console.WriteLine();
             // heap.HeapArray[1] = 1;
 
-            // DirectedGraph simpleGraph = new DirectedGraph(4);
-            // simpleGraph.AddVertex(1);
-            // simpleGraph.AddVertex(2);
-            // simpleGraph.AddVertex(3);
-            // simpleGraph.AddVertex(4);
-            //
-            // simpleGraph.AddEdge(0, 1);
-            // simpleGraph.AddEdge(1, 3);
-            // simpleGraph.AddEdge(3, 0);
-            //
+            SimpleGraph<int> simpleGraph = new SimpleGraph<int>(4);
+            simpleGraph.AddVertex(1);
+            simpleGraph.AddVertex(2);
+            simpleGraph.AddVertex(3);
+            simpleGraph.AddVertex(4);
+            
+            simpleGraph.AddEdge(0, 1);
+            simpleGraph.AddEdge(1, 3);
+            simpleGraph.AddEdge(3, 0);
+            
+            List<Vertex<int>> vertices = simpleGraph.DepthFirstSearch(0,3);
+
+            Console.WriteLine($"vertices:");
+            foreach (Vertex<int> vertex in vertices)
+            {
+                Console.Write($"{vertex.Value} ");
+            }
+
+            Console.WriteLine();
+            
             // var test = simpleGraph.HasCycle();
             // Console.WriteLine($"Has Cycle: {test}");
             // // simpleGraph.AddEdge(1, 2);
@@ -104,7 +121,7 @@ namespace AlgorithmsDataStructures2
             //
             //     Console.WriteLine();
             // }
-            
+
             // bool isEdge = simpleGraph.IsEdge(1, 2);
             // Console.WriteLine($"IsEdge: {isEdge}");
             //

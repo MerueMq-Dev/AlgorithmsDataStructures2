@@ -1,9 +1,9 @@
 using System;
 namespace AlgorithmsDataStructures2
 {
-    public class DirectedGraph
+    public class DirectedGraph<T>
     {
-        public Vertex[] vertex;
+        public Vertex<T>[] vertex;
         public int[,] m_adjacency;
         public int max_vertex;
 
@@ -11,19 +11,19 @@ namespace AlgorithmsDataStructures2
         {
             max_vertex = size;
             m_adjacency = new int [size, size];
-            vertex = new Vertex [size];
+            vertex = new Vertex<T> [size];
         }
 
-        public void AddVertex(int value)
+        public void AddVertex(T value)
         {
             if (vertex == null)
-                return;
+                return; 
 
             int freePosition = Array.IndexOf(vertex, null);
             if (freePosition == -1)
                 return;
 
-            Vertex newVertex = new Vertex(value);
+            Vertex<T> newVertex = new Vertex<T>(value);
             vertex[freePosition] = newVertex;
         }
 
