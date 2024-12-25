@@ -559,7 +559,7 @@ namespace AlgorithmsDataStructures2
         {
             if (keys == null || keys.Length == 0)
                 return;
-            Array.Sort(keys);
+            
             int rootIndex = keys.Length % 2 == 0 ? keys.Length / 2 - 1 : keys.Length / 2;
             if (Root == null)
             {
