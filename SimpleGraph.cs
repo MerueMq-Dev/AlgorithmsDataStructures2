@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AlgorithmsDataStructures2
 {
@@ -164,15 +165,16 @@ namespace AlgorithmsDataStructures2
 
             if (vertex[VFrom] == null || vertex[VFrom] == null)
                 return path;
-            
+
             Stack<int> stack = new Stack<int>();
             foreach (Vertex<T> vertex in vertex)
             {
                 vertex.Hit = false;
             }
-            
+
             stack.Push(VFrom);
             vertex[VFrom].Hit = true;
+
             
             while (stack.Count > 0)
             {
@@ -180,14 +182,14 @@ namespace AlgorithmsDataStructures2
                 Vertex<T> currentVertex = vertex[currentIdx];
                 
                 path.Add(currentVertex);
-                
+
                 if (currentIdx == VTo)
                 {
                     return path;
                 }
-                
+
                 bool foundNeighbor = false;
-                
+
                 for (int i = 0; i < max_vertex; i++)
                 {
                     if (m_adjacency[currentIdx, i] == 1 && !vertex[i].Hit)
@@ -198,14 +200,48 @@ namespace AlgorithmsDataStructures2
                         break;
                     }
                 }
-                
+
                 if (!foundNeighbor)
                 {
                     stack.Pop();
                 }
             }
-            
+
             return new List<Vertex<T>>();
+        }
+
+        public bool IsGraphConnected()
+        {
+            if (vertex.Length == 0)
+                return true;
+            
+
+            Stack<int> stack = new Stack<int>();
+
+            foreach (var vertex in vertex)
+            {
+                vertex.Hit = false;
+            }
+
+            int startIndex = 0;
+            vertex[startIndex].Hit = true;
+            stack.Push(startIndex);
+            
+            while (stack.Count > 0)
+            {
+                int currentIdx = stack.Pop();   
+                
+                for (int i = 0; i < max_vertex; i++)
+                {
+                    if (m_adjacency[currentIdx, i] == 1 && !vertex[i].Hit)
+                    {
+                        vertex[i].Hit = true;
+                        stack.Push(i);
+                    }   
+                }
+            }
+            
+            return vertex.All(v => v.Hit);
         }
     }
 }

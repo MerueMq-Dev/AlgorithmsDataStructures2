@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+
 namespace AlgorithmsDataStructures2
 {
     public class DirectedGraph<T>
@@ -17,7 +19,7 @@ namespace AlgorithmsDataStructures2
         public void AddVertex(T value)
         {
             if (vertex == null)
-                return; 
+                return;
 
             int freePosition = Array.IndexOf(vertex, null);
             if (freePosition == -1)
@@ -33,7 +35,7 @@ namespace AlgorithmsDataStructures2
                 return;
             if (v >= max_vertex || vertex[v] == null)
                 return;
-            
+
             for (int i = 0; i < max_vertex; i++)
             {
                 RemoveEdge(v, i);
@@ -43,6 +45,7 @@ namespace AlgorithmsDataStructures2
             {
                 RemoveEdge(i, v);
             }
+
             vertex[v] = null;
         }
 
@@ -74,7 +77,7 @@ namespace AlgorithmsDataStructures2
             m_adjacency[v1, v2] = 1;
             // m_adjacency[v2, v1] = 1;
         }
-        
+
         public void RemoveEdge(int v1, int v2)
         {
             if (vertex == null)
@@ -88,11 +91,11 @@ namespace AlgorithmsDataStructures2
 
             m_adjacency[v1, v2] = 0;
         }
-        
+
         public bool HasCycle()
         {
             bool[] visited = new bool[max_vertex];
-            
+
             for (int i = 0; i < max_vertex; i++)
             {
                 if (!visited[i])
@@ -102,9 +105,9 @@ namespace AlgorithmsDataStructures2
                 }
             }
 
-            return false; 
+            return false;
         }
-        
+
         private bool IsCyclic(int vertex, bool[] visited)
         {
             if (visited[vertex]) return true;
@@ -112,15 +115,62 @@ namespace AlgorithmsDataStructures2
             visited[vertex] = true;
             for (int i = 0; i < max_vertex; i++)
             {
-                if (m_adjacency[vertex, i] == 1)  
+                if (m_adjacency[vertex, i] == 1)
                 {
                     if (IsCyclic(i, visited))
-                        return true; 
+                        return true;
                 }
             }
 
             visited[vertex] = false;
             return false;
+        }
+        
+        
+        public int FindLengthLongestSimplePath()
+        {
+            Stack<int> stack = new Stack<int>();
+            List<int> longestPathLengths = new List<int>(new int[max_vertex]);
+            
+            for (int start = 0; start < max_vertex; start++)
+            {
+                if (!vertex[start].Hit)
+                {
+                    stack.Push(start);
+                    vertex[start].Hit = true;
+
+                    while (stack.Count > 0)
+                    {
+                        int currentIdx = stack.Peek();
+                        bool foundNeighbor = false;
+
+                        for (int i = 0; i < max_vertex; i++)
+                        {
+                            if (m_adjacency[currentIdx, i] == 1 && !vertex[i].Hit)
+                            {
+                                stack.Push(i);
+                                vertex[i].Hit = true;
+                                longestPathLengths[i] = Math.Max(longestPathLengths[i],
+                                    longestPathLengths[currentIdx] + 1);
+                                foundNeighbor = true;
+                                break;
+                            }
+                        }
+
+                        if (!foundNeighbor)
+                        {
+                            stack.Pop();
+                        }
+                    }
+                }
+            }
+
+            int maxLength = 0;
+            foreach (var length in longestPathLengths)
+            {
+                maxLength = Math.Max(maxLength, length);
+            }
+            return maxLength;
         }
     }
 }
