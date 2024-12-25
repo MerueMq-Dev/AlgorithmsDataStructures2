@@ -513,6 +513,75 @@ namespace AlgorithmsDataStructures2
             };
 
             return node;
+            
+        }
+        
+        public List<BSTNode<T>> GetAllNodes()
+        {
+            if (Root == null)
+                return new List<BSTNode<T>>();
+
+            Queue<BSTNode<T>> queue = new Queue<BSTNode<T>>();
+            List<BSTNode<T>> allNodes = new List<BSTNode<T>>();
+
+            queue.Enqueue(Root);
+
+            while (queue.Count > 0)
+            {
+                BSTNode<T> currentNode = queue.Dequeue();
+                allNodes.Add(currentNode);
+
+                if (currentNode.LeftChild != null)
+                    queue.Enqueue(currentNode.LeftChild);
+
+                if (currentNode.RightChild != null)
+                    queue.Enqueue(currentNode.RightChild);
+            }
+            
+            return allNodes;
+        }
+        public void BalanceTree()
+        {
+            List<BSTNode<T>> allNodes = GetAllNodes();
+            BSTNode<T>[] sortedNodes = allNodes.OrderBy(x => x.NodeKey).ToArray();
+            int[] keys = new int[allNodes.Count];
+            T[] values = new T[allNodes.Count];
+            for (int i = 0; i < sortedNodes.Length; i++)
+            {   
+                keys[i] = sortedNodes[i].NodeKey;
+                values[i] = sortedNodes[i].NodeValue;
+            }
+
+            GenerateTree(keys, values);
+        }
+        
+        public void GenerateTree(int[] keys, T[] values)
+        {
+            if (keys == null || keys.Length == 0)
+                return;
+            Array.Sort(keys);
+            int rootIndex = keys.Length % 2 == 0 ? keys.Length / 2 - 1 : keys.Length / 2;
+            if (Root == null)
+            {
+                Root = new BSTNode<T>(keys[rootIndex],values[rootIndex], null, 0);
+            }
+
+            Root.LeftChild = GenerateTree(keys ,values, Root, 0, rootIndex - 1);
+            Root.RightChild = GenerateTree(keys ,values, Root, rootIndex + 1, keys.Length - 1);
+        }
+
+        private BSTNode<T> GenerateTree(int[] keys, T[] values, BSTNode<T> parent, int start, int end)
+        {
+            if (start > end)
+                return null;
+        
+            int rootIndex = (start + end) / 2;
+            BSTNode<T> node = new BSTNode<T>(keys[rootIndex], values[rootIndex], parent,
+                parent.level + 1);
+            node.LeftChild = GenerateTree(keys,values, node, start, rootIndex - 1);
+            node.RightChild = GenerateTree(keys,values, node, rootIndex + 1, end);
+        
+            return node;
         }
     }
 }

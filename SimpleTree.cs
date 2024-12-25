@@ -18,6 +18,7 @@ namespace AlgorithmsDataStructures2
         }
     }
 
+
     public class SimpleTree<T>
     {
         public SimpleTreeNode<T> Root;
@@ -211,10 +212,10 @@ namespace AlgorithmsDataStructures2
         {
             if (leftTreeNode == null && rightTreeNode == null)
                 return true;
-            
+
             if (leftTreeNode == null || rightTreeNode == null)
                 return false;
-            
+
             if (!IsEqualTo(leftTreeNode.NodeValue, rightTreeNode.NodeValue))
                 return false;
 
@@ -225,10 +226,10 @@ namespace AlgorithmsDataStructures2
 
             if (leftChildren == null || rightChildren == null)
                 return false;
-            
+
             if (leftChildren.Count != rightChildren.Count)
                 return false;
-            
+
             int count = leftChildren.Count;
             for (int i = 0; i < count; i++)
             {
@@ -238,12 +239,12 @@ namespace AlgorithmsDataStructures2
 
             return true;
         }
-        
+
         public List<T> EvenTrees()
         {
             List<T> brokenConnections = new List<T>();
             List<SimpleTreeNode<T>> nodesToRemove = new List<SimpleTreeNode<T>>();
-            
+
             foreach (var child in Root.Children)
             {
                 int nodesCount = Count(child);
@@ -257,11 +258,30 @@ namespace AlgorithmsDataStructures2
 
             foreach (var node in nodesToRemove)
             {
-                DeleteNode(node);   
+                DeleteNode(node);
             }
-            
+
             return brokenConnections;
         }
-        
+
+        public int CountEvenSubTree(SimpleTreeNode<T> node)
+        {
+         
+            if (node == null)
+                return 0;
+                
+            int countNode = Count(node);
+            int countEvenSubTree =  Count(node) % 2 == 0 && countNode != 0  ? 1 : 0;
+
+            if (node.Children == null || node.Children.Count == 0)
+                return 0;
+            
+            foreach (var child in node.Children)
+            {
+                countEvenSubTree += CountEvenSubTree(child);
+            }
+            
+            return countEvenSubTree;
+        }
     }
 }

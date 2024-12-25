@@ -33,18 +33,27 @@ namespace AlgorithmsDataStructures2
             // tree.AddChild(nodeValueEight, nodeValueNine);
             // tree.AddChild(nodeValueEight, nodeValueTen);
             //
-            // List<int> brokenConnections = tree.EvenTrees();
-            //
-            // Console.WriteLine(string.Join(", ", brokenConnections));
 
-            
-            
-            
-            
-            
-            
-            
-            
+            // Создаем дерево для Примера
+            // SimpleTreeNode<int> parentNode = new SimpleTreeNode<int>(1, null);
+            // SimpleTree<int> tree = new SimpleTree<int>(parentNode);
+            //
+            // SimpleTreeNode<int> nodeValueTwo = new SimpleTreeNode<int>(2, null);
+            // SimpleTreeNode<int> nodeValueThree = new SimpleTreeNode<int>(3, null);
+            // SimpleTreeNode<int> nodeValueFour = new SimpleTreeNode<int>(4, null);
+            // SimpleTreeNode<int> nodeValueFive = new SimpleTreeNode<int>(5, null);
+            // SimpleTreeNode<int> nodeValueSix = new SimpleTreeNode<int>(6, null);
+            // SimpleTreeNode<int> nodeValueSeven = new SimpleTreeNode<int>(7, null);
+            //
+            //
+            // // Добавляем дочерние узлы
+            // tree.AddChild(parentNode, nodeValueThree);
+            // tree.AddChild(parentNode, nodeValueTwo); ;
+            // tree.AddChild(nodeValueTwo, nodeValueSeven);
+            //
+            // int countSubTree = tree.CountEvenSubTree(tree.Root);
+            // Console.WriteLine($"countSubTree: {countSubTree}");
+
             // string[] s = new string[] { "1" };
             // int test = Array.IndexOf(s, null);
             // Console.WriteLine($"test {test}");
@@ -66,26 +75,29 @@ namespace AlgorithmsDataStructures2
             // Console.WriteLine();
             // heap.HeapArray[1] = 1;
 
-            SimpleGraph<int> simpleGraph = new SimpleGraph<int>(4);
-            simpleGraph.AddVertex(1);
-            simpleGraph.AddVertex(2);
-            simpleGraph.AddVertex(3);
-            simpleGraph.AddVertex(4);
-            
-            simpleGraph.AddEdge(0, 1);
-            simpleGraph.AddEdge(1, 3);
-            simpleGraph.AddEdge(3, 0);
-            
-            List<Vertex<int>> vertices = simpleGraph.DepthFirstSearch(0,3);
-
-            Console.WriteLine($"vertices:");
-            foreach (Vertex<int> vertex in vertices)
-            {
-                Console.Write($"{vertex.Value} ");
-            }
+            // DirectedGraph<int> simpleGraph = new DirectedGraph<int>(7);
+            // simpleGraph.AddVertex(0);
+            // simpleGraph.AddVertex(1);
+            // simpleGraph.AddVertex(2);
+            // simpleGraph.AddVertex(3);
+            // simpleGraph.AddVertex(4);
+            // simpleGraph.AddVertex(5);
+            // simpleGraph.AddVertex(6);
+            //
+            // simpleGraph.AddEdge(0, 1);
+            // simpleGraph.AddEdge(1, 2);
+            // simpleGraph.AddEdge(2, 3);
+            // simpleGraph.AddEdge(3, 4);
+            // simpleGraph.AddEdge(1, 5);
+            // simpleGraph.AddEdge(5, 6);
+            //
+            // int length = simpleGraph.FindLengthLongestSimplePath();
+            //
+            // Console.WriteLine($"Length: {length}");
+            // List<Vertex<int>> vertices = simpleGraph.DepthFirstSearch(0,2);
 
             Console.WriteLine();
-            
+
             // var test = simpleGraph.HasCycle();
             // Console.WriteLine($"Has Cycle: {test}");
             // // simpleGraph.AddEdge(1, 2);
@@ -128,32 +140,45 @@ namespace AlgorithmsDataStructures2
 
             Console.WriteLine();
 
-            // BSTNode<int> rootNode = new BSTNode<int>(4, 4, null);
-            // List<int> values = new List<int> { 2, 1, 3, 6, 5, 7 };
-            // BST<int> tree = new BST<int>(null);
+            BSTNode<int> rootNode = new BSTNode<int>(4, 4, null);
+            List<int> values = new List<int> { 1, 2, 3, 4, 5, 6, 7 };
+            BST<int> tree = new BST<int>(null);
 
-            // foreach (var value in values)
-            // {
-            //     tree.AddKeyValue(value, value);
-            // }
+            foreach (var value in values)
+            {
+                tree.AddKeyValue(value, value);
+            }
 
-            // int[] prefixTraversal = { 1, 2, 4, 5, 3, 6, 7 };
-            // int[] infixTraversal = { 4, 2, 5, 1, 6, 3, 7 };
-            //
-            // tree.RestoreTree(prefixTraversal, infixTraversal);
-            //
-            // List<BSTNode<int>> allNodes = tree.WideAllNodes2();
-            // int currentLevel = 0;
-            // foreach (BSTNode<int> node in allNodes)
-            // {
-            //     if (currentLevel < node.level)
-            //     {
-            //         Console.WriteLine();
-            //         currentLevel += 1;
-            //     }
-            //
-            //     Console.Write($" {node.NodeKey} ");
-            // }
+            var allNodes = tree.GetAllNodes();    
+            
+            int currentLevel = 0;
+            foreach (BSTNode<int> node in allNodes)
+            {
+                if (currentLevel < node.level)
+                {
+                    Console.WriteLine();
+                    currentLevel += 1;
+                }
+
+                Console.Write($" {node.NodeKey} ");
+            }
+
+            tree.BalanceTree();
+            
+            allNodes = tree.GetAllNodes();
+            Console.WriteLine("-------------------------------");
+            
+            currentLevel = 0;
+            foreach (BSTNode<int> node in allNodes)
+            {
+                if (currentLevel < node.level)
+                {
+                    Console.WriteLine();
+                    currentLevel += 1;
+                }
+
+                Console.Write($" {node.NodeKey} ");
+            }
 
             // tree.InvertTree();
             // Console.WriteLine();
