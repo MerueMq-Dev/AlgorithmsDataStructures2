@@ -126,50 +126,33 @@ namespace AlgorithmsDataStructures2
             return false;
         }
         
-        
         public int FindLengthLongestSimplePath()
         {
-            Stack<int> stack = new Stack<int>();
-            List<int> longestPathLengths = new List<int>(new int[max_vertex]);
-            
+            int maxLength = 0;
+
             for (int start = 0; start < max_vertex; start++)
             {
-                if (!vertex[start].Hit)
+                Stack<(int vertex, int currentLength)> stack = new Stack<(int, int)>();
+                stack.Push((start, 0));
+
+                while (stack.Count > 0)
                 {
-                    stack.Push(start);
-                    vertex[start].Hit = true;
+                    var (currentIdx, currentLength) = stack.Pop();
+                    maxLength = Math.Max(maxLength, currentLength);
+                    vertex[currentIdx].Hit = true;
 
-                    while (stack.Count > 0)
+                    for (int i = 0; i < max_vertex; i++)
                     {
-                        int currentIdx = stack.Peek();
-                        bool foundNeighbor = false;
-
-                        for (int i = 0; i < max_vertex; i++)
+                        if (m_adjacency[currentIdx, i] == 1 && !vertex[i].Hit) 
                         {
-                            if (m_adjacency[currentIdx, i] == 1 && !vertex[i].Hit)
-                            {
-                                stack.Push(i);
-                                vertex[i].Hit = true;
-                                longestPathLengths[i] = Math.Max(longestPathLengths[i],
-                                    longestPathLengths[currentIdx] + 1);
-                                foundNeighbor = true;
-                                break;
-                            }
-                        }
-
-                        if (!foundNeighbor)
-                        {
-                            stack.Pop();
+                            stack.Push((i, currentLength + 1));
                         }
                     }
+
+                    vertex[currentIdx].Hit = false;
                 }
             }
 
-            int maxLength = 0;
-            foreach (var length in longestPathLengths)
-            {
-                maxLength = Math.Max(maxLength, length);
-            }
             return maxLength;
         }
     }

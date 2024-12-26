@@ -22,7 +22,8 @@ namespace AlgorithmsDataStructures2
             // SimpleTreeNode<int> nodeValueTen = new SimpleTreeNode<int>(10, null);
             // SimpleTreeNode<int> nodeValueEleven = new SimpleTreeNode<int>(11, null);
             // SimpleTreeNode<int> nodeValueTwelve = new SimpleTreeNode<int>(12, null);
-            //
+            
+            
             // tree.AddChild(parentNode, nodeValueTwo);
             // tree.AddChild(nodeValueTwo, nodeValueFive);
             // tree.AddChild(nodeValueTwo, nodeValueSeven);
@@ -75,7 +76,7 @@ namespace AlgorithmsDataStructures2
             // Console.WriteLine();
             // heap.HeapArray[1] = 1;
 
-            SimpleGraph<int> simpleGraph = new SimpleGraph<int>(7);
+            DirectedGraph<int> simpleGraph = new DirectedGraph<int>(7);
             simpleGraph.AddVertex(0);
             simpleGraph.AddVertex(1);
             simpleGraph.AddVertex(2);
@@ -84,24 +85,20 @@ namespace AlgorithmsDataStructures2
             simpleGraph.AddVertex(5);
             simpleGraph.AddVertex(6);
             
+            
             simpleGraph.AddEdge(0, 1);
             simpleGraph.AddEdge(1, 2);
             simpleGraph.AddEdge(2, 3);
             simpleGraph.AddEdge(3, 4);
-            simpleGraph.AddEdge(1, 5);
-            // simpleGraph.AddEdge(5, 6);
+            // simpleGraph.AddEdge(1, 5);
+            simpleGraph.AddEdge(5, 6);
             
-            //
-            // int length = simpleGraph.FindLengthLongestSimplePath();
-            //
-            // Console.WriteLine($"Length: {length}");
-            List<Vertex<int>> vertices = simpleGraph.BreadthFirstSearch(2,6);
+            
+            int length = simpleGraph.FindLengthLongestSimplePath();
+            
+            Console.WriteLine($"Length: {length}");
             Console.WriteLine("bg");
             
-            foreach (var vertex in vertices)
-            {
-                Console.WriteLine(vertex.Value);
-            }
             
             Console.WriteLine();
 
