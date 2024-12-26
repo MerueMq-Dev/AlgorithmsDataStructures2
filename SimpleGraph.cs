@@ -248,14 +248,14 @@ namespace AlgorithmsDataStructures2
         public List<Vertex<T>> BreadthFirstSearch(int VFrom, int VTo)
         {
             List<Vertex<T>> path = new List<Vertex<T>>();
-
-            if (VFrom >= max_vertex || VTo >= max_vertex || vertex[VFrom] == null ||
-                vertex[VTo] == null)
-                return path;
-
-
+            
             if (vertex == null || vertex[VFrom] == null || vertex[VTo] == null)
                 return path;
+            
+            
+            if (VFrom >= max_vertex || VTo >= max_vertex)
+                return path;
+            
             
             Queue<int> queue = new Queue<int>();
             Dictionary<int, int> previous = new Dictionary<int, int>(); // Словарь для восстановления пути
