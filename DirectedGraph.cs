@@ -164,36 +164,5 @@ namespace AlgorithmsDataStructures2
 
             return maxLength;
         }
-
-
-        // public int FindLengthLongestSimplePath()
-        // {
-        //     int maxLength = 0;
-        //
-        //     for (int start = 0; start < max_vertex; start++)
-        //     {
-        //         Stack<(int vertex, int currentLength)> stack = new Stack<(int, int)>();
-        //         stack.Push((start, 0));
-        //
-        //         while (stack.Count > 0)
-        //         {
-        //             var (currentIdx, currentLength) = stack.Pop();
-        //             maxLength = Math.Max(maxLength, currentLength);
-        //             vertex[currentIdx].Hit = true;
-        //
-        //             for (int i = 0; i < max_vertex; i++)
-        //             {
-        //                 if (m_adjacency[currentIdx, i] == 1 && !vertex[i].Hit) 
-        //                 {
-        //                     stack.Push((i, currentLength + 1));
-        //                 }
-        //             }
-        //
-        //             vertex[currentIdx].Hit = false;
-        //         }
-        //     }
-        //
-        //     return maxLength;
-        // }
     }
 }
