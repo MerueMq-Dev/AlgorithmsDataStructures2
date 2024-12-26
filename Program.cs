@@ -75,7 +75,7 @@ namespace AlgorithmsDataStructures2
             // Console.WriteLine(string.Join(", ", heap.HeapArray));
             // Console.WriteLine();
             // heap.HeapArray[1] = 1;
-
+            
             DirectedGraph<int> simpleGraph = new DirectedGraph<int>(7);
             simpleGraph.AddVertex(0);
             simpleGraph.AddVertex(1);
@@ -84,24 +84,49 @@ namespace AlgorithmsDataStructures2
             simpleGraph.AddVertex(4);
             simpleGraph.AddVertex(5);
             simpleGraph.AddVertex(6);
-            
-            
+
             simpleGraph.AddEdge(0, 1);
-            simpleGraph.AddEdge(1, 2);
+            simpleGraph.AddEdge(1, 2); 
             simpleGraph.AddEdge(2, 3);
-            simpleGraph.AddEdge(3, 4);
-            // simpleGraph.AddEdge(1, 5);
+            simpleGraph.AddEdge(3, 4); 
             simpleGraph.AddEdge(5, 6);
             
-            
             int length = simpleGraph.FindLengthLongestSimplePath();
-            
             Console.WriteLine($"Length: {length}");
-            Console.WriteLine("bg");
             
-            
-            Console.WriteLine();
+            DirectedGraph<int> disconnectedGraph = new DirectedGraph<int>(6);
+            disconnectedGraph.AddVertex(0);
+            disconnectedGraph.AddVertex(1);
+            disconnectedGraph.AddVertex(2);
+            disconnectedGraph.AddVertex(3);
+            disconnectedGraph.AddVertex(4);
+            disconnectedGraph.AddVertex(5);
 
+            disconnectedGraph.AddEdge(0, 1);
+            disconnectedGraph.AddEdge(1, 2);
+            disconnectedGraph.AddEdge(3, 4);
+            disconnectedGraph.AddEdge(4, 5); 
+            
+            int disconnectedGraphLength = disconnectedGraph.FindLengthLongestSimplePath();
+            Console.WriteLine($"disconnectedGraphLength {disconnectedGraphLength}");
+
+
+            DirectedGraph<int> cyclicGraph = new DirectedGraph<int>(5);
+            cyclicGraph.AddVertex(0);
+            cyclicGraph.AddVertex(1);
+            cyclicGraph.AddVertex(2);
+            cyclicGraph.AddVertex(3);
+            cyclicGraph.AddVertex(4);
+
+            cyclicGraph.AddEdge(0, 1);
+            cyclicGraph.AddEdge(1, 2);
+            cyclicGraph.AddEdge(2, 3);
+            cyclicGraph.AddEdge(3, 4);
+            cyclicGraph.AddEdge(4, 0); 
+
+            Console.WriteLine($"cyclic length {cyclicGraph.FindLengthLongestSimplePath()}");
+
+            
             // var test = simpleGraph.HasCycle();
             // Console.WriteLine($"Has Cycle: {test}");
             // // simpleGraph.AddEdge(1, 2);
@@ -143,15 +168,6 @@ namespace AlgorithmsDataStructures2
             //
 
             Console.WriteLine();
-
-            BSTNode<int> rootNode = new BSTNode<int>(4, 4, null);
-            List<int> values = new List<int> { 1, 2, 3, 4, 5, 6, 7 };
-            BST<int> tree = new BST<int>(null);
-
-            foreach (var value in values)
-            {
-                tree.AddKeyValue(value, value);
-            }
 
 
             // tree.InvertTree();

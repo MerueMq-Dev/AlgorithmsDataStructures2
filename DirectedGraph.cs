@@ -125,35 +125,75 @@ namespace AlgorithmsDataStructures2
             visited[vertex] = false;
             return false;
         }
-        
+
+
         public int FindLengthLongestSimplePath()
         {
             int maxLength = 0;
 
             for (int start = 0; start < max_vertex; start++)
             {
-                Stack<(int vertex, int currentLength)> stack = new Stack<(int, int)>();
-                stack.Push((start, 0));
+                Stack<(int vertex, int currentLength, bool[] visited)> stack = new Stack<(int, int, bool[])>();
+                bool[] visited = new bool[max_vertex];
+                stack.Push((start, 0, visited));
 
                 while (stack.Count > 0)
                 {
-                    var (currentIdx, currentLength) = stack.Pop();
+                    (int currentIdx, int currentLength, bool[] currentVisited) = stack.Pop();
+
                     maxLength = Math.Max(maxLength, currentLength);
-                    vertex[currentIdx].Hit = true;
+
+                    if (currentVisited[currentIdx])
+                        continue;
+
+                    currentVisited[currentIdx] = true;
 
                     for (int i = 0; i < max_vertex; i++)
                     {
-                        if (m_adjacency[currentIdx, i] == 1 && !vertex[i].Hit) 
+                        if (m_adjacency[currentIdx, i] == 1 && !currentVisited[i])
                         {
-                            stack.Push((i, currentLength + 1));
+                            bool[] nextVisited = new bool[max_vertex];
+                            Array.Copy(currentVisited, nextVisited, currentVisited.Length);
+                            stack.Push((i, currentLength + 1, nextVisited));
                         }
                     }
 
-                    vertex[currentIdx].Hit = false;
+                    currentVisited[currentIdx] = false;
                 }
             }
 
             return maxLength;
         }
+
+
+        // public int FindLengthLongestSimplePath()
+        // {
+        //     int maxLength = 0;
+        //
+        //     for (int start = 0; start < max_vertex; start++)
+        //     {
+        //         Stack<(int vertex, int currentLength)> stack = new Stack<(int, int)>();
+        //         stack.Push((start, 0));
+        //
+        //         while (stack.Count > 0)
+        //         {
+        //             var (currentIdx, currentLength) = stack.Pop();
+        //             maxLength = Math.Max(maxLength, currentLength);
+        //             vertex[currentIdx].Hit = true;
+        //
+        //             for (int i = 0; i < max_vertex; i++)
+        //             {
+        //                 if (m_adjacency[currentIdx, i] == 1 && !vertex[i].Hit) 
+        //                 {
+        //                     stack.Push((i, currentLength + 1));
+        //                 }
+        //             }
+        //
+        //             vertex[currentIdx].Hit = false;
+        //         }
+        //     }
+        //
+        //     return maxLength;
+        // }
     }
 }
