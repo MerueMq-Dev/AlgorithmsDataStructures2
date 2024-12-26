@@ -75,27 +75,34 @@ namespace AlgorithmsDataStructures2
             // Console.WriteLine();
             // heap.HeapArray[1] = 1;
 
-            // DirectedGraph<int> simpleGraph = new DirectedGraph<int>(7);
-            // simpleGraph.AddVertex(0);
-            // simpleGraph.AddVertex(1);
-            // simpleGraph.AddVertex(2);
-            // simpleGraph.AddVertex(3);
-            // simpleGraph.AddVertex(4);
-            // simpleGraph.AddVertex(5);
-            // simpleGraph.AddVertex(6);
-            //
-            // simpleGraph.AddEdge(0, 1);
-            // simpleGraph.AddEdge(1, 2);
-            // simpleGraph.AddEdge(2, 3);
-            // simpleGraph.AddEdge(3, 4);
-            // simpleGraph.AddEdge(1, 5);
+            SimpleGraph<int> simpleGraph = new SimpleGraph<int>(7);
+            simpleGraph.AddVertex(0);
+            simpleGraph.AddVertex(1);
+            simpleGraph.AddVertex(2);
+            simpleGraph.AddVertex(3);
+            simpleGraph.AddVertex(4);
+            simpleGraph.AddVertex(5);
+            simpleGraph.AddVertex(6);
+            
+            simpleGraph.AddEdge(0, 1);
+            simpleGraph.AddEdge(1, 2);
+            simpleGraph.AddEdge(2, 3);
+            simpleGraph.AddEdge(3, 4);
+            simpleGraph.AddEdge(1, 5);
             // simpleGraph.AddEdge(5, 6);
+            
             //
             // int length = simpleGraph.FindLengthLongestSimplePath();
             //
             // Console.WriteLine($"Length: {length}");
-            // List<Vertex<int>> vertices = simpleGraph.DepthFirstSearch(0,2);
-
+            List<Vertex<int>> vertices = simpleGraph.BreadthFirstSearch(2,6);
+            Console.WriteLine("bg");
+            
+            foreach (var vertex in vertices)
+            {
+                Console.WriteLine(vertex.Value);
+            }
+            
             Console.WriteLine();
 
             // var test = simpleGraph.HasCycle();
@@ -149,36 +156,6 @@ namespace AlgorithmsDataStructures2
                 tree.AddKeyValue(value, value);
             }
 
-            var allNodes = tree.GetAllNodes();    
-            
-            int currentLevel = 0;
-            foreach (BSTNode<int> node in allNodes)
-            {
-                if (currentLevel < node.level)
-                {
-                    Console.WriteLine();
-                    currentLevel += 1;
-                }
-
-                Console.Write($" {node.NodeKey} ");
-            }
-
-            tree.BalanceTree();
-            
-            allNodes = tree.GetAllNodes();
-            Console.WriteLine("-------------------------------");
-            
-            currentLevel = 0;
-            foreach (BSTNode<int> node in allNodes)
-            {
-                if (currentLevel < node.level)
-                {
-                    Console.WriteLine();
-                    currentLevel += 1;
-                }
-
-                Console.Write($" {node.NodeKey} ");
-            }
 
             // tree.InvertTree();
             // Console.WriteLine();
@@ -190,7 +167,7 @@ namespace AlgorithmsDataStructures2
             //     if (currentLevel < node.level)
             //     {
             //         Console.WriteLine();
-            //         currentLevel += 1;
+            //         currentLevel += 1;   
             //     }
             //     Console.Write($" {node.NodeKey} ");
             // }

@@ -175,12 +175,12 @@ namespace AlgorithmsDataStructures2
             stack.Push(VFrom);
             vertex[VFrom].Hit = true;
 
-            
+
             while (stack.Count > 0)
             {
                 int currentIdx = stack.Peek();
                 Vertex<T> currentVertex = vertex[currentIdx];
-                
+
                 path.Add(currentVertex);
 
                 if (currentIdx == VTo)
@@ -214,7 +214,7 @@ namespace AlgorithmsDataStructures2
         {
             if (vertex.Length == 0)
                 return true;
-            
+
 
             Stack<int> stack = new Stack<int>();
 
@@ -226,22 +226,79 @@ namespace AlgorithmsDataStructures2
             int startIndex = 0;
             vertex[startIndex].Hit = true;
             stack.Push(startIndex);
-            
+
             while (stack.Count > 0)
             {
-                int currentIdx = stack.Pop();   
-                
+                int currentIdx = stack.Pop();
+
                 for (int i = 0; i < max_vertex; i++)
                 {
                     if (m_adjacency[currentIdx, i] == 1 && !vertex[i].Hit)
                     {
                         vertex[i].Hit = true;
                         stack.Push(i);
-                    }   
+                    }
                 }
             }
-            
+
             return vertex.All(v => v.Hit);
+        }
+
+
+        public List<Vertex<T>> BreadthFirstSearch(int VFrom, int VTo)
+        {
+            List<Vertex<T>> path = new List<Vertex<T>>();
+
+            if (VFrom >= max_vertex || VTo >= max_vertex || vertex[VFrom] == null ||
+                vertex[VTo] == null)
+                return path;
+
+
+            if (vertex == null || vertex[VFrom] == null || vertex[VTo] == null)
+                return path;
+            
+            Queue<int> queue = new Queue<int>();
+            Dictionary<int, int> previous = new Dictionary<int, int>(); // Словарь для восстановления пути
+
+            foreach (var v in vertex)
+            {
+                v.Hit = false;
+            }
+
+            queue.Enqueue(VFrom);
+            vertex[VFrom].Hit = true;
+            
+            while (queue.Count > 0)
+            {
+                int currentIdx = queue.Dequeue();
+                Vertex<T> currentVertex = vertex[currentIdx];
+                
+                if (currentIdx == VTo)
+                {
+                
+                    while (previous.ContainsKey(currentIdx))
+                    {
+                        path.Add(vertex[currentIdx]);
+                        currentIdx = previous[currentIdx];
+                    }
+
+                    path.Add(vertex[VFrom]);
+                    path.Reverse();
+                    return path;
+                }
+                
+                for (int i = 0; i < max_vertex; i++)
+                {
+                    if (m_adjacency[currentIdx, i] == 1 && !vertex[i].Hit)
+                    {
+                        vertex[i].Hit = true;
+                        queue.Enqueue(i);
+                        previous[i] = currentIdx;
+                    }
+                }
+            }
+
+            return path;
         }
     }
 }
