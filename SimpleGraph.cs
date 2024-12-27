@@ -258,7 +258,7 @@ namespace AlgorithmsDataStructures2
             
             
             Queue<int> queue = new Queue<int>();
-            Dictionary<int, int> previous = new Dictionary<int, int>(); // Словарь для восстановления пути
+            Dictionary<int, int> previous = new Dictionary<int, int>();
 
             foreach (var v in vertex)
             {
@@ -299,6 +299,41 @@ namespace AlgorithmsDataStructures2
             }
 
             return path;
+        }
+        public List<Vertex<T>> WeakVertices()
+        {
+            HashSet<int> verticesInTriangles = new HashSet<int>();
+            
+            for (int i = 0; i < max_vertex; i++)
+            {
+                for (int j = i + 1; j < max_vertex; j++)
+                {
+                    if (m_adjacency[i, j] == 1)
+                    {
+                        for (int k = j + 1; k < max_vertex; k++)
+                        {
+                            if (m_adjacency[i, k] == 1 && m_adjacency[j, k] == 1)
+                            {
+                                verticesInTriangles.Add(i);
+                                verticesInTriangles.Add(j);
+                                verticesInTriangles.Add(k);
+                            }    
+                        }
+                    }
+                }
+            }
+
+            List<Vertex<T>> verticesNotInTriangles = new List<Vertex<T>>();
+            
+            for (int i = 0; i < max_vertex; i++)
+            {
+                if (!verticesInTriangles.Contains(i) && vertex[i] != null)
+                {
+                    verticesNotInTriangles.Add(vertex[i]);
+                }
+            }
+
+            return verticesNotInTriangles;
         }
     }
 }
