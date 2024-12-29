@@ -310,15 +310,7 @@ namespace AlgorithmsDataStructures2
                 {
                     if (m_adjacency[i, j] == 1)
                     {
-                        for (int k = j + 1; k < max_vertex; k++)
-                        {
-                            if (m_adjacency[i, k] == 1 && m_adjacency[j, k] == 1)
-                            {
-                                verticesInTriangles.Add(i);
-                                verticesInTriangles.Add(j);
-                                verticesInTriangles.Add(k);
-                            }
-                        }
+                        AddVerticesInTriangles(i, j, verticesInTriangles);
                     }
                 }
             }
@@ -336,7 +328,19 @@ namespace AlgorithmsDataStructures2
             return verticesNotInTriangles;
         }
         
-
+        private void AddVerticesInTriangles(int i, int j, HashSet<int> verticesInTriangles)
+        {
+            for (int k = j + 1; k < max_vertex; k++)
+            {
+                if (m_adjacency[i, k] == 1 && m_adjacency[j, k] == 1)
+                {
+                    verticesInTriangles.Add(i);
+                    verticesInTriangles.Add(j);
+                    verticesInTriangles.Add(k);
+                }
+            }
+        }
+        
         public List<List<int>> FindCycles()
         {
             bool[] visited = new bool[max_vertex];
