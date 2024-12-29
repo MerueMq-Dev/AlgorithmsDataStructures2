@@ -266,22 +266,125 @@ namespace AlgorithmsDataStructures2
 
         public int CountEvenSubTree(SimpleTreeNode<T> node)
         {
-         
             if (node == null)
                 return 0;
-                
+
             int countNode = Count(node);
-            int countEvenSubTree =  Count(node) % 2 == 0 && countNode != 0  ? 1 : 0;
+            int countEvenSubTree = Count(node) % 2 == 0 && countNode != 0 ? 1 : 0;
 
             if (node.Children == null || node.Children.Count == 0)
                 return 0;
-            
+
             foreach (var child in node.Children)
             {
                 countEvenSubTree += CountEvenSubTree(child);
             }
-            
+
             return countEvenSubTree;
+        }
+        
+        public int FindMaxDistance()
+        {
+            if (Root == null)
+                return 0;
+
+            (SimpleTreeNode<T> farthestNode1, _) = BFS(Root);
+
+            (_, int maxDistance) = BFS(farthestNode1);
+
+            return maxDistance;
+        }
+        
+        private (SimpleTreeNode<T> farthestNode, int maxDistance) BFS(SimpleTreeNode<T> startNode)
+        {
+            Queue<SimpleTreeNode<T>> queue = new Queue<SimpleTreeNode<T>>();
+            Dictionary<SimpleTreeNode<T>, int> distances = new Dictionary<SimpleTreeNode<T>, int>();
+            HashSet<SimpleTreeNode<T>> visited = new HashSet<SimpleTreeNode<T>>();
+            
+            queue.Enqueue(startNode);
+            distances[startNode] = 0;
+            visited.Add(startNode);
+
+            SimpleTreeNode<T> farthestNode = startNode;
+            int maxDistance = 0;
+
+            while (queue.Count > 0)
+            {
+                SimpleTreeNode<T> currentNode = queue.Dequeue();
+                int currentDistance = distances[currentNode];
+                
+                (SimpleTreeNode<T> childFarthestNode,int childMaxDistance) =
+                    ProcessChildren(currentNode, currentDistance, queue, distances, visited);
+                
+                if (childMaxDistance > maxDistance)
+                {
+                    maxDistance = childMaxDistance;
+                    farthestNode = childFarthestNode;
+                }
+                
+                (SimpleTreeNode<T> parentFarthestNode,int parentMaxDistance) =
+                    ProcessParent(currentNode, currentDistance, queue, distances, visited);
+                
+                if (parentMaxDistance > maxDistance)
+                {
+                    maxDistance = parentMaxDistance;
+                    farthestNode = parentFarthestNode;
+                }
+            }
+
+            return (farthestNode, maxDistance);
+        }
+        
+        private (SimpleTreeNode<T> farthestNode, int maxDistance) ProcessChildren(SimpleTreeNode<T> currentNode,
+            int currentDistance,
+            Queue<SimpleTreeNode<T>> queue, Dictionary<SimpleTreeNode<T>, int> distances,
+            HashSet<SimpleTreeNode<T>> visited)
+        {
+            SimpleTreeNode<T> farthestNode = currentNode;
+            int maxDistance = currentDistance;
+
+            if (currentNode.Children == null)
+                return (farthestNode, maxDistance);
+            
+            foreach (var child in currentNode.Children)
+            {
+                if (!visited.Add(child))
+                    continue;
+                
+                distances[child] = currentDistance + 1;
+                queue.Enqueue(child);
+
+                if (distances[child] <= maxDistance)
+                    continue;
+                
+                maxDistance = distances[child];
+                farthestNode = child;
+            }
+            
+            return (farthestNode, maxDistance);
+        }
+
+        private (SimpleTreeNode<T> farthestNode, int maxDistance) ProcessParent(SimpleTreeNode<T> currentNode,
+            int currentDistance,
+            Queue<SimpleTreeNode<T>> queue, Dictionary<SimpleTreeNode<T>, int> distances,
+            HashSet<SimpleTreeNode<T>> visited)
+        {
+            SimpleTreeNode<T> farthestNode = currentNode;
+            int maxDistance = currentDistance;
+
+            if (currentNode.Parent == null || !visited.Add(currentNode.Parent)) 
+                return (farthestNode, maxDistance);
+            
+            distances[currentNode.Parent] = currentDistance + 1;
+            queue.Enqueue(currentNode.Parent);
+
+            if (distances[currentNode.Parent] <= maxDistance) 
+                return (farthestNode, maxDistance);
+            
+            maxDistance = distances[currentNode.Parent];
+            farthestNode = currentNode.Parent;
+
+            return (farthestNode, maxDistance);
         }
     }
 }

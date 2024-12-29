@@ -248,15 +248,15 @@ namespace AlgorithmsDataStructures2
         public List<Vertex<T>> BreadthFirstSearch(int VFrom, int VTo)
         {
             List<Vertex<T>> path = new List<Vertex<T>>();
-            
+
             if (vertex == null || vertex[VFrom] == null || vertex[VTo] == null)
                 return path;
-            
-            
+
+
             if (VFrom >= max_vertex || VTo >= max_vertex)
                 return path;
-            
-            
+
+
             Queue<int> queue = new Queue<int>();
             Dictionary<int, int> previous = new Dictionary<int, int>();
 
@@ -267,15 +267,14 @@ namespace AlgorithmsDataStructures2
 
             queue.Enqueue(VFrom);
             vertex[VFrom].Hit = true;
-            
+
             while (queue.Count > 0)
             {
                 int currentIdx = queue.Dequeue();
                 Vertex<T> currentVertex = vertex[currentIdx];
-                
+
                 if (currentIdx == VTo)
                 {
-                
                     while (previous.ContainsKey(currentIdx))
                     {
                         path.Add(vertex[currentIdx]);
@@ -286,7 +285,7 @@ namespace AlgorithmsDataStructures2
                     path.Reverse();
                     return path;
                 }
-                
+
                 for (int i = 0; i < max_vertex; i++)
                 {
                     if (m_adjacency[currentIdx, i] == 1 && !vertex[i].Hit)
@@ -300,10 +299,11 @@ namespace AlgorithmsDataStructures2
 
             return path;
         }
+
         public List<Vertex<T>> WeakVertices()
         {
             HashSet<int> verticesInTriangles = new HashSet<int>();
-            
+
             for (int i = 0; i < max_vertex; i++)
             {
                 for (int j = i + 1; j < max_vertex; j++)
@@ -317,14 +317,14 @@ namespace AlgorithmsDataStructures2
                                 verticesInTriangles.Add(i);
                                 verticesInTriangles.Add(j);
                                 verticesInTriangles.Add(k);
-                            }    
+                            }
                         }
                     }
                 }
             }
 
             List<Vertex<T>> verticesNotInTriangles = new List<Vertex<T>>();
-            
+
             for (int i = 0; i < max_vertex; i++)
             {
                 if (!verticesInTriangles.Contains(i) && vertex[i] != null)
@@ -334,6 +334,85 @@ namespace AlgorithmsDataStructures2
             }
 
             return verticesNotInTriangles;
+        }
+        
+
+        public List<List<int>> FindCycles()
+        {
+            bool[] visited = new bool[max_vertex];
+            int[] parent = new int[max_vertex];
+            bool[] recursionStack = new bool[max_vertex];
+            List<List<int>> allCycles = new List<List<int>>();
+            
+            for (int i = 0; i < parent.Length; i++)
+            {
+                parent[i] = -1;
+            }
+            
+            for (int i = 0; i < m_adjacency.GetLength(0); i++)
+            {
+                if (!visited[i])
+                {
+                    DFS(i, visited, parent, recursionStack, allCycles);
+                }
+            }
+
+            return allCycles;
+        }
+        
+        private void DFS(int v, bool[] visited, int[] parent, bool[] recursionStack, List<List<int>> allCycles)
+        {
+            visited[v] = true;
+            recursionStack[v] = true;
+
+            for (int neighbor = 0; neighbor < m_adjacency.GetLength(0); neighbor++)
+            {
+                if (m_adjacency[v, neighbor] == 1) // Если есть рёбер между вершинами
+                {
+                    // Если сосед не посещен, рекурсивно выполняем DFS
+                    if (!visited[neighbor])
+                    {
+                        parent[neighbor] = v;
+                        DFS(neighbor, visited, parent, recursionStack, allCycles);
+                    }
+                    // Если сосед уже посещён и не родитель, то найден цикл
+                    else if (recursionStack[neighbor] && parent[v] != neighbor)
+                    {
+                        // Восстановление цикла
+                        List<int> cycle = new List<int>();
+                        int current = v;
+
+                        // Восстанавливаем цикл
+                        while (current != neighbor)
+                        {
+                            cycle.Add(current);
+                            current = parent[current];
+                        }
+
+                        cycle.Add(neighbor);
+                        cycle.Reverse();
+                        
+                        if (!ContainsCycle(allCycles, cycle))
+                        {
+                            allCycles.Add(cycle);
+                        }
+                    }
+                }
+            }
+            recursionStack[v] = false;
+        }
+        
+        private bool ContainsCycle(List<List<int>> allCycles, List<int> cycle)
+        {
+            foreach (var existingCycle in allCycles)
+            {
+                if (existingCycle.Count == cycle.Count && !existingCycle.Except(cycle).Any())
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
