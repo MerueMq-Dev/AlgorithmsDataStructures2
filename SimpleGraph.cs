@@ -367,22 +367,18 @@ namespace AlgorithmsDataStructures2
 
             for (int neighbor = 0; neighbor < m_adjacency.GetLength(0); neighbor++)
             {
-                if (m_adjacency[v, neighbor] == 1) // Если есть рёбер между вершинами
+                if (m_adjacency[v, neighbor] == 1)
                 {
-                    // Если сосед не посещен, рекурсивно выполняем DFS
                     if (!visited[neighbor])
                     {
                         parent[neighbor] = v;
                         DFS(neighbor, visited, parent, recursionStack, allCycles);
                     }
-                    // Если сосед уже посещён и не родитель, то найден цикл
                     else if (recursionStack[neighbor] && parent[v] != neighbor)
                     {
-                        // Восстановление цикла
                         List<int> cycle = new List<int>();
                         int current = v;
-
-                        // Восстанавливаем цикл
+                        
                         while (current != neighbor)
                         {
                             cycle.Add(current);
