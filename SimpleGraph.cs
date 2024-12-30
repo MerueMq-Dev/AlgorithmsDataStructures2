@@ -76,6 +76,17 @@ namespace AlgorithmsDataStructures2
             return m_adjacency[v1, v2] == 1 && m_adjacency[v2, v1] == 1;
         }
 
+        public bool IsVertexExists(int vertexIndex)
+        {
+            if (vertex == null)
+                return false;
+
+            if (vertexIndex < 0 || vertexIndex >= vertex.Length || vertex[vertexIndex] == null)
+                return false;
+
+            return true;
+        }
+
         public void AddEdge(int v1, int v2)
         {
             if (vertex == null)
@@ -91,19 +102,6 @@ namespace AlgorithmsDataStructures2
             m_adjacency[v2, v1] = 1;
         }
 
-        public void AddDirectedEdge(int v1, int v2)
-        {
-            if (vertex == null)
-                return;
-
-            if (v1 >= max_vertex || v2 >= max_vertex)
-                return;
-
-            if (vertex[v1] == null || vertex[v2] == null)
-                return;
-
-            m_adjacency[v1, v2] = 1;
-        }
 
         public void RemoveEdge(int v1, int v2)
         {
@@ -300,6 +298,85 @@ namespace AlgorithmsDataStructures2
             return path;
         }
 
+
+        public int CountTriangles()
+        {
+            int count = 0;
+
+            for (int i = 0; i < max_vertex; i++)
+            {
+                for (int j = i + 1; j < max_vertex; j++)
+                {
+                    count += CountTrianglesWithEdge(i, j);
+                }
+            }
+
+            return count;
+        }
+
+        private bool IsTriangle(int i, int j, int k)
+        {
+            return m_adjacency[i, j] == 1 && m_adjacency[i, k] == 1 && m_adjacency[j, k] == 1;
+        }
+
+        private int CountTrianglesWithEdge(int i, int j)
+        {
+            int count = 0;
+
+            if (m_adjacency[i, j] == 1)
+            {
+                for (int k = j + 1; k < max_vertex; k++)
+                {
+                    if (IsTriangle(i, j, k))
+                    {
+                        count++;
+                    }
+                }
+            }
+
+            return count;
+        }
+
+        public List<Vertex<T>> FindWeakVertices()
+        {
+            HashSet<int> verticesInTriangles = new HashSet<int>();
+            for (int i = 0; i < max_vertex; i++)
+            {
+                for (int j = i + 1; j < max_vertex; j++)
+                {
+                    if (IsEdge(i, j))
+                    {
+                        AddVerticesToTriangles(i, j, verticesInTriangles);
+                    }
+                }
+            }
+
+            List<Vertex<T>> verticesNotInTriangles = new List<Vertex<T>>();
+
+            for (int i = 0; i < max_vertex; i++)
+            {
+                if (!verticesInTriangles.Contains(i) && IsVertexExists(i))
+                {
+                    verticesNotInTriangles.Add(vertex[i]);
+                }
+            }
+
+            return verticesNotInTriangles;
+        }
+
+        private void AddVerticesToTriangles(int i, int j, HashSet<int> verticesInTriangles)
+        {
+            for (int k = j + 1; k < max_vertex; k++)
+            {
+                if (IsEdge(i, k) && IsEdge(j, k))
+                {
+                    verticesInTriangles.Add(i);
+                    verticesInTriangles.Add(j);
+                    verticesInTriangles.Add(k);
+                }
+            }
+        }
+
         public List<Vertex<T>> WeakVertices()
         {
             HashSet<int> verticesInTriangles = new HashSet<int>();
@@ -327,7 +404,7 @@ namespace AlgorithmsDataStructures2
 
             return verticesNotInTriangles;
         }
-        
+
         private void AddVerticesInTriangles(int i, int j, HashSet<int> verticesInTriangles)
         {
             for (int k = j + 1; k < max_vertex; k++)
@@ -340,19 +417,19 @@ namespace AlgorithmsDataStructures2
                 }
             }
         }
-        
+
         public List<List<int>> FindCycles()
         {
             bool[] visited = new bool[max_vertex];
             int[] parent = new int[max_vertex];
             bool[] recursionStack = new bool[max_vertex];
             List<List<int>> allCycles = new List<List<int>>();
-            
+
             for (int i = 0; i < parent.Length; i++)
             {
                 parent[i] = -1;
             }
-            
+
             for (int i = 0; i < m_adjacency.GetLength(0); i++)
             {
                 if (!visited[i])
@@ -363,7 +440,7 @@ namespace AlgorithmsDataStructures2
 
             return allCycles;
         }
-        
+
         private void DFS(int v, bool[] visited, int[] parent, bool[] recursionStack, List<List<int>> allCycles)
         {
             visited[v] = true;
@@ -382,7 +459,7 @@ namespace AlgorithmsDataStructures2
                     {
                         List<int> cycle = new List<int>();
                         int current = v;
-                        
+
                         while (current != neighbor)
                         {
                             cycle.Add(current);
@@ -391,7 +468,7 @@ namespace AlgorithmsDataStructures2
 
                         cycle.Add(neighbor);
                         cycle.Reverse();
-                        
+
                         if (!ContainsCycle(allCycles, cycle))
                         {
                             allCycles.Add(cycle);
@@ -399,9 +476,10 @@ namespace AlgorithmsDataStructures2
                     }
                 }
             }
+
             recursionStack[v] = false;
         }
-        
+
         private bool ContainsCycle(List<List<int>> allCycles, List<int> cycle)
         {
             foreach (var existingCycle in allCycles)

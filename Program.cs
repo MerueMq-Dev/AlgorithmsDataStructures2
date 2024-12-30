@@ -9,22 +9,26 @@ namespace AlgorithmsDataStructures2
     {
         public static void Main(string[] args)
         {
-            // SimpleGraph<int> simpleGraph = new SimpleGraph<int>(7);
-            // simpleGraph.AddVertex(0);
-            // simpleGraph.AddVertex(1);
-            // simpleGraph.AddVertex(2);
-            // simpleGraph.AddVertex(3);
-            //
-            // simpleGraph.AddEdge(0, 1);
-            // simpleGraph.AddEdge(1, 2); 
-            // simpleGraph.AddEdge(2, 0);
-            //
-            // List<Vertex<int>> verticesNotInTriangles = simpleGraph.WeakVertices();
-            //
-            // foreach (var vertex in verticesNotInTriangles)
-            // {
-            //     Console.WriteLine(vertex.Value);
-            // }
+            SimpleGraph<int> simpleGraph = new SimpleGraph<int>(7);
+            simpleGraph.AddVertex(0);
+            simpleGraph.AddVertex(1);
+            simpleGraph.AddVertex(2);
+            simpleGraph.AddVertex(3);
+            
+            simpleGraph.AddEdge(0, 1);
+            simpleGraph.AddEdge(1, 2); 
+            simpleGraph.AddEdge(2, 0);
+            simpleGraph.AddEdge(2, 3);
+
+            List<Vertex<int>> verticesNotInTriangles = simpleGraph.WeakVertices();
+
+            int countTriangles = simpleGraph.CountTriangles();
+            Console.WriteLine($"Number of Triangles is {countTriangles}");
+            
+            foreach (var vertex in verticesNotInTriangles)
+            {
+                Console.WriteLine(vertex.Value);
+            }
 
 
             // SimpleTreeNode<int> root = new SimpleTreeNode<int>(1, null);
@@ -54,7 +58,7 @@ namespace AlgorithmsDataStructures2
             //
             // Console.WriteLine(node.NodeValue);
 
-            TestCycles();
+            
         }
 
         public static void TestCycles()
